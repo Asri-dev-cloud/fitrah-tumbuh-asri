@@ -65,10 +65,9 @@ export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
                 {item}
               </a>
             ))}
-            {/* Mobile CTA button inside the dropdown drawer */}
             <a 
               className="button button-small mobile-only-cta" 
-              href="https://wa.me/6280000000000" 
+              href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh." 
               target="_blank" 
               rel="noreferrer"
               style={{ marginTop: '8px' }}
@@ -80,7 +79,7 @@ export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
           <div className="nav-actions">
             <a 
               className="button button-small" 
-              href="https://wa.me/6280000000000" 
+              href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh." 
               target="_blank" 
               rel="noreferrer"
             >
