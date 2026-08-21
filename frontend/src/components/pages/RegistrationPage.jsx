@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { trackFormSubmit } from '../../utils/analytics'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
 
 const roles = [
   {
@@ -34,6 +37,52 @@ const programs = [
   'Berkebun & Beternak',
   'Hiking Pemuda & Keluarga'
 ]
+
+const stepStyles = {
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    margin: '0 auto 28px',
+    width: '100%',
+    flexWrap: 'nowrap',
+    overflow: 'hidden'
+  },
+  item: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    justifyContent: 'center',
+    flex: '1 1 0',
+    minWidth: 0,
+    maxWidth: '180px'
+  },
+  node: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    border: '1px solid rgba(92, 56, 16, 0.2)',
+    background: 'rgba(255, 255, 255, 0.25)',
+    color: 'rgba(92, 56, 16, 0.55)',
+    fontSize: '0.78rem',
+    fontWeight: 800,
+    display: 'grid',
+    placeItems: 'center',
+    transition: 'all 0.25s ease',
+    cursor: 'default',
+    flexShrink: 0
+  },
+  label: {
+    fontSize: '0.72rem',
+    color: 'rgba(92, 56, 16, 0.6)',
+    fontWeight: 600,
+    lineHeight: 1.2,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  }
+}
 
 export default function RegistrationPage() {
   const whatsappAdminNumber = '6285156916211'
@@ -76,7 +125,7 @@ export default function RegistrationPage() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     if (!formData.message.trim()) {
@@ -90,7 +139,25 @@ export default function RegistrationPage() {
     }
 
     setError('')
-    setIsSubmitted(true)
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/registrations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          whatsapp: formData.phone.trim(),
+          institution: formData.institution.trim(),
+          cooperation_type: selectedRole,
+          message: formData.message.trim()
+        })
+      })
+      if (!response.ok) throw new Error()
+      setIsSubmitted(true)
+      trackFormSubmit('Kemitraan Kolaborasi', selectedRole)
+    } catch {
+      setError('Gagal mengirim pendaftaran. Silakan coba lagi atau langsung konfirmasi via WhatsApp.')
+    }
   }
 
   const resetForm = () => {
@@ -122,25 +189,40 @@ export default function RegistrationPage() {
         {!isSubmitted && <h1 className="registration-title">Formulir Kemitraan &amp; Registrasi</h1>}
 
         {!isSubmitted && (
-          <div className="registration-steps" aria-label="progress step">
+          <div className="registration-steps" aria-label="progress step" style={stepStyles.container}>
             {[1, 2, 3].map((item) => {
               const isActive = step === item
               const isDone = step > item
+              const labelText = item === 1 ? 'Pilih Peran' : item === 2 ? 'Kontak' : 'Konfirmasi'
 
               return (
-                <div key={item} className="step-item">
+                <div key={item} className="step-item" style={stepStyles.item}>
                   <button
                     type="button"
                     className={`step-node ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
                     onClick={() => step > item && setStep(item)}
                     disabled={step < item}
+                    style={{
+                      ...stepStyles.node,
+                      background: isActive || isDone ? '#5c3810' : 'rgba(255, 255, 255, 0.25)',
+                      color: isActive || isDone ? '#fff' : 'rgba(92, 56, 16, 0.55)',
+                      borderColor: isActive || isDone ? '#5c3810' : 'rgba(92, 56, 16, 0.2)',
+                      boxShadow: isActive ? '0 0 0 4px rgba(92, 56, 16, 0.08)' : 'none',
+                      cursor: step > item ? 'pointer' : step === item ? 'default' : 'not-allowed',
+                      opacity: step < item ? 0.7 : 1
+                    }}
                   >
                     {item}
                   </button>
-                  <span className={`step-label ${isActive ? 'active' : ''}`}>
-                    {item === 1 && 'Pilih Peran'}
-                    {item === 2 && 'Kontak & Instansi'}
-                    {item === 3 && 'Konfirmasi'}
+                  <span
+                    className={`step-label ${isActive ? 'active' : ''}`}
+                    style={{
+                      ...stepStyles.label,
+                      color: isActive ? '#5c3810' : 'rgba(92, 56, 16, 0.6)',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    {labelText}
                   </span>
                 </div>
               )
@@ -150,7 +232,11 @@ export default function RegistrationPage() {
 
         {isSubmitted ? (
           <div className="success-state">
-            <div className="success-icon">✓</div>
+            <div className="success-icon" aria-label="Sukses">
+              <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" focusable="false">
+                <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
             <h2>Pendaftaran berhasil dikirim</h2>
             <p>
               Terima kasih, admin WhatsApp kami sudah menerima pendaftaran Anda. Mohon ditunggu, nanti kami akan menghubungi Anda kembali.

@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react'
 import AboutPage from './pages/AboutPage'
-import PhilosophyPage from './pages/PhilosophyPage'
 import ProgramPage from './pages/ProgramPage'
-import EducationPage from './pages/EducationPage'
 import PortfolioPage from './pages/PortfolioPage'
 import CollaborationPage from './pages/CollaborationPage'
+import TalentMappingPage from './pages/TalentMappingPage'
+import ProdukPage from './pages/ProdukPage'
+import KelasPage from './pages/KelasPage'
+import ServicesPage from './pages/ServicesPage'
+import FreePage from './pages/FreePage'
+import InsightPage from './pages/InsightPage'
+
 const photos = {
   about: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1400&q=85',
   program: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=85',
@@ -21,14 +25,6 @@ const staticData = {
     labels: ['Sejarah Schole Fitrah', 'Visi & Misi', 'Wilayah Bandung–Sumedang'],
     section: 'Jejak kami dimulai dari keyakinan sederhana: setiap manusia hadir dengan potensi yang layak ditemukan.'
   },
-  filosofi: {
-    kicker: 'Filosofi Fitrah',
-    title: 'Setiap anak tumbuh<br /><i>dengan caranya sendiri.</i>',
-    desc: 'Kami memandang pendidikan sebagai proses menemani anak mengenali fitrahnya—akal, rasa, tubuh, dan kontribusinya bagi sesama.',
-    image: photos.nature,
-    labels: ['Fitrah Keimanan', 'Fitrah Belajar', 'Fitrah Bakat'],
-    section: 'Pendidikan yang baik tidak menyeragamkan jalan, melainkan membantu tiap anak menemukan pijakannya.'
-  },
   program: {
     kicker: 'Program Fitrah Tumbuh',
     title: 'Ruang belajar yang<br /><i>hidup dan bermakna.</i>',
@@ -37,12 +33,12 @@ const staticData = {
     labels: ['Calistung & Literasi', 'Belajar Bersama Alam', 'Healing Farm', 'Hiking & Family Camp', 'Magang Pemuda', 'Inkubasi UMKM'],
     section: 'Pilih program sesuai tahap tumbuh dan kebutuhan komunitas Anda.'
   },
-  edukasi: {
-    kicker: 'Pusat Edukasi',
-    title: 'Belajar bisa dimulai<br /><i>dari mana saja.</i>',
-    desc: 'Koleksi sumber belajar untuk keluarga, pendidik, dan komunitas yang ingin bertumbuh secara sadar.',
-    image: photos.program,
-    section: 'Materi praktis yang bisa dibaca, ditonton, dan digunakan kembali di rumah maupun ruang belajar.'
+  'talent-mapping': {
+    kicker: 'Talent Mapping',
+    title: 'Ayo kenali diri dan potensi Anda',
+    desc: 'Temukan kecenderungan kemampuan lewat serangkaian pernyataan singkat. Hasil membantu mengenali kekuatan utama Anda.',
+    image: photos.people,
+    section: 'Mulai kenali diri dengan menjawab pernyataan di halaman Talent Mapping.'
   },
   portofolio: {
     kicker: 'Portofolio Program',
@@ -60,111 +56,86 @@ const staticData = {
     labels: ['Logo Mitra', 'Bentuk Kerja Sama', 'Dokumentasi', 'Capaian Program', 'Impact Story'],
     section: 'Ruang kolaborasi terbuka bagi setiap pihak yang ingin menghadirkan pendidikan yang membumi.'
   },
-  dampak: {
-    kicker: 'Dashboard Dampak',
-    title: 'Mengukur yang tumbuh,<br /><i>merayakan yang berarti.</i>',
-    desc: 'Gambaran dampak Fitrah Tumbuh dari program, kolaborasi, dan gerakan yang kami jalankan bersama.',
-    image: photos.about,
-    section: 'Data dampak terkini Fitrah Tumbuh, diperbarui secara real-time melalui area admin.'
+  produk: {
+    kicker: 'Digital Product',
+    title: 'Media Belajar &<br /><i>Panduan Tumbuh.</i>',
+    desc: 'Temukan ebook reflektif, worksheet ramah anak, toolkit, dan materi edukatif praktis untuk menunjang tumbuh kembang keluarga dan karir.',
+    image: photos.program,
+    labels: [],
+    section: 'Jelajahi Produk Digital Kami'
   },
-  daftar: {
-    kicker: 'Pendaftaran Kolaborasi',
-    title: 'Langkah baik dimulai<br /><i>dari kolaborasi nyata.</i>',
-    desc: 'Pilih peran Anda dan isi detail formulir untuk mulai tumbuh dan bergerak bersama kami.',
+  kelas: {
+    kicker: 'Digital Learning',
+    title: 'Ruang Belajar &<br /><i>Kelas Interaktif.</i>',
+    desc: 'Ikuti webinar, mini class 60-90 menit, workshop pengembangan diri, dan program mentoring bersama para fasilitator ahli.',
+    image: photos.program,
+    labels: [],
+    section: 'Temukan Kelas Terjadwal'
+  },
+  services: {
+    kicker: 'Project & Consulting',
+    title: 'Desain Program &<br /><i>Kemitraan Strategis.</i>',
+    desc: 'Kami merancang kurikulum sekolah berbasis alam, menyusun proposal, mengelola inkubasi UMKM, dan memberikan bimbingan proyek sosial.',
     image: photos.people,
-    section: 'Formulir Kemitraan & Registrasi'
+    labels: [],
+    section: 'Layanan Jasa & Konsultasi Kami'
+  },
+  free: {
+    kicker: 'Free Resources',
+    title: 'Lead Magnet &<br /><i>Resource Gratis.</i>',
+    desc: 'Unduh kuesioner evaluasi mandiri (family check), panduan merancang proyek, dan worksheet mingguan secara gratis untuk memetakan pertumbuhan Anda.',
+    image: photos.nature,
+    labels: [],
+    section: 'Dapatkan Akses Download Gratis'
+  },
+  insight: {
+    kicker: 'Blog & Insight',
+    title: 'Kredibilitas &<br /><i>Nalar Tumbuh.</i>',
+    desc: 'Temukan perspektif, tulisan reflektif, dan artikel pengasuhan, pemuda, dan karir yang membangun kredibilitas pemikiran.',
+    image: photos.about,
+    labels: [],
+    section: 'Jelajahi Artikel Terbaru'
   }
 }
-
-
 
 export default function InteriorPage({ page, navigate }) {
   const p = staticData[page] || staticData.program
 
-  const [stats, setStats] = useState([])
-  const [education, setEducation] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    if (page === 'dampak') {
-      setLoading(true)
-      fetch('http://localhost:5000/api/stats')
-        .then(res => res.json())
-        .then(data => setStats(data))
-        .catch(err => console.log('Error loading stats:', err))
-        .finally(() => setLoading(false))
-    } else if (page === 'edukasi') {
-      setLoading(true)
-      fetch('http://localhost:5000/api/education')
-        .then(res => res.json())
-        .then(data => setEducation(data))
-        .catch(err => console.log('Error loading education:', err))
-        .finally(() => setLoading(false))
-    }
-  }, [page])
-
-  // Helper for backend media URLs
   const renderSection = () => {
     if (page === 'tentang-kami') return <AboutPage />
-    if (page === 'filosofi') return <PhilosophyPage />
     if (page === 'program') return <ProgramPage />
-    if (page === 'edukasi') return <EducationPage />
-    if (page === 'portofolio') return <PortfolioPage />
+    if (page === 'talent-mapping') return <TalentMappingPage />
+    if (page === 'portofolio') return <PortfolioPage navigate={navigate} />
     if (page === 'kolaborasi') return <CollaborationPage />
+    if (page === 'produk') return <ProdukPage navigate={navigate} />
+    if (page === 'kelas') return <KelasPage navigate={navigate} />
+    if (page === 'services') return <ServicesPage navigate={navigate} />
+    if (page === 'free') return <FreePage navigate={navigate} />
+    if (page === 'insight') return <InsightPage navigate={navigate} />
 
     return (
-      <section className={page === 'dampak' ? 'content-section impact-dashboard' : 'content-section'}>
+      <section className="content-section">
         <p className="eyebrow"><span></span> Jelajahi</p>
         <h2>{p.section}</h2>
 
-        {loading && (
-          <div className="flex justify-center p-12 text-[#738a43]">
-            <p className="animate-pulse font-medium">Memuat data terbaru...</p>
-          </div>
-        )}
-
-        {!loading && page === 'dampak' && (
-          <div className="content-grid">
-            {stats.length > 0 ? (
-              stats.map((s, index) => (
-                <article key={s.id}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{s.value}</h3>
-                  <p>{s.label}</p>
-                </article>
-              ))
-            ) : (
-              ['1.240 Peserta', '48 Sekolah Mitra', '12 Program Berjalan', '7 Kota/Kabupaten', '116 Relawan', '186 Total Kegiatan'].map((item, index) => (
-                <article key={item}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{item.split(' ')[0]}</h3>
-                  <p>{item.split(' ').slice(1).join(' ')}</p>
-                </article>
-              ))
-            )}
-          </div>
-        )}
-
-        {!loading && page !== 'dampak' && page !== 'daftar' && (
-          <div className="content-grid">
-            {p.labels?.map((label, index) => (
-              <article key={label}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{label}</h3>
-                <p>Temukan cerita dan informasi selengkapnya.</p>
-                <b>→</b>
-              </article>
-            ))}
-          </div>
-        )}
+        <div className="content-grid">
+          {p.labels?.map((label, index) => (
+            <article key={label}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{label}</h3>
+              <p>Temukan cerita dan informasi selengkapnya.</p>
+              <b>→</b>
+            </article>
+          ))}
+        </div>
       </section>
     )
   }
 
   return (
-    <section className={`inside-page animate-fadeIn ${page === 'daftar' ? 'daftar-page' : ''}`}>
+    <section className="inside-page animate-fadeIn">
       {/* Page Hero */}
-      {page !== 'daftar' && (
+      {page !== 'talent-mapping' && (
         <div className="inside-hero">
           <img className="inside-photo" src={p.image} alt="Kegiatan Fitrah Tumbuh" />
           <div className="inside-photo-overlay"></div>
@@ -187,12 +158,7 @@ export default function InteriorPage({ page, navigate }) {
       {/* Dynamic / Static Content Section */}
       {renderSection()}
 
-      {/* Page Footer Navigation */}
-      <section className="inside-bottom">
-        <p className="eyebrow"><span></span> Fitrah Tumbuh</p>
-        <h2>Hal baik selalu dimulai<br />dari langkah yang dekat.</h2>
-        <button className="text-button" onClick={() => navigate('beranda')}>← Kembali ke beranda</button>
-      </section>
+      {/* Page Footer Navigation removed per request */}
     </section>
   )
 }

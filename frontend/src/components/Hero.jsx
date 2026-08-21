@@ -16,21 +16,27 @@ const photos = [
   'https://images.unsplash.com/photo-1545601445-4d6a0a0565f0?auto=format&fit=crop&w=400&q=80'  // Photo 15 (b3)
 ]
 
-export default function Hero() {
+export default function Hero({ navigate }) {
   return (
     <section className="hero-section-wrapper">
       <div id="beranda" className="hero-section">
         <div className="hero-copy">
-          <h1>Bertumbuh dalam <em>fitrah,</em><br />bergerak untuk sesama.</h1>
+          <span className="eyebrow" style={{ color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '12px', display: 'inline-block' }}>
+            Apa itu Fitrah Tumbuh?
+          </span>
+          <h1>
+            Bertumbuh dalam <span className="highlight-fitrah">Fitrah</span>,<br />
+            Bergerak untuk <span className="highlight-sesama">Sesama</span>.
+          </h1>
           <p className="hero-text">
-            Membangun ekosistem pendidikan dan pengembangan komunitas yang membantu setiap individu mengenali potensi sejatinya, bersahabat dengan alam, serta berkontribusi nyata bagi sekelilingnya.
+            Platform pendidikan dan pengembangan potensi untuk keluarga, pemuda, pekerja, dan komunitas.
           </p>
           <div className="hero-buttons">
-            <a href="#program" className="button">
-              Jelajahi Program <span>→</span>
+            <a href="#program" className="button" onClick={(e) => { e.preventDefault(); navigate('program'); }}>
+              Explore Program <span>→</span>
             </a>
-            <a href="#kontak" className="text-button">
-              Hubungi Kami <b>→</b>
+            <a href="#services" className="text-button" onClick={(e) => { e.preventDefault(); navigate('services'); }}>
+              Konsultasi <b>→</b>
             </a>
           </div>
         </div>

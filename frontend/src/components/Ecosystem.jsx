@@ -1,17 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import {
-  ArrowRight,
-  Play,
-  Check,
-  BookOpen,
-  Compass,
-  Leaf,
-  Mountain,
-  Briefcase,
-  Store,
-  Heart,
-  Users
-} from 'lucide-react'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
 
 const defaultPillars = [
   {
@@ -46,7 +35,7 @@ const defaultPillars = [
   }
 ]
 
-export default function Ecosystem({ navigate }) {
+export default function Ecosystem() {
   const [pillars, setPillars] = useState(defaultPillars)
 
   // Carousel dragging states & logic
@@ -165,7 +154,7 @@ export default function Ecosystem({ navigate }) {
   ]
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/programs')
+    fetch(`${API_BASE_URL}/api/programs`)
       .then(res => {
         if (!res.ok) throw new Error('API failed')
         return res.json()
@@ -175,7 +164,7 @@ export default function Ecosystem({ navigate }) {
           const mapped = data.map(p => ({
             title: p.title,
             text: p.description,
-            image: p.image_url.startsWith('/') ? `http://localhost:5000${p.image_url}` : p.image_url
+            image: p.image_url
           }))
           setPillars(mapped)
         }
@@ -185,6 +174,60 @@ export default function Ecosystem({ navigate }) {
 
   return (
     <>
+      <style>{`
+.craftly-batik {
+  background-image:
+    radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%),
+    radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%);
+  background-position: 0 0, 42px 42px;
+  background-size: 84px 84px;
+  color: #dca11d;
+  transform: rotate(-7deg) scale(1.12);
+}
+.craftly-batik-fade {
+  background: linear-gradient(90deg, #5c3810 12%, rgba(92, 56, 16, 0.7) 42%, rgba(92, 56, 16, 0.08) 100%);
+}
+.craftly-batik-light {
+  background-image:
+    radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 25%, transparent 26% 44%, currentColor 45% 46%, transparent 47%),
+    radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 25%, transparent 26% 44%, currentColor 45% 46%, transparent 47%);
+  background-position: 0 0, 54px 54px;
+  background-size: 108px 108px;
+  color: #738a43;
+}
+.craftly-carousel-orbit {
+  will-change: transform;
+}
+.craftly-carousel-orbit article {
+  transform: rotateY(var(--card-angle)) translateZ(255px) translateY(var(--card-y)) rotateZ(var(--card-tilt)) scale(var(--card-scale));
+  background-size: cover;
+  background-position: center;
+}
+.craftly-carousel-orbit article > * {
+  backface-visibility: hidden;
+}
+.craftly-carousel-orbit article::after {
+  content: "FITRAH TUMBUH";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #1c1512, #2d221d);
+  color: rgba(250,240,215,.28);
+  font-family: monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  transform: rotateY(180deg) translateZ(1px);
+  backface-visibility: hidden;
+}
+@media (max-width: 767px) {
+  .craftly-carousel-orbit article {
+    transform: rotateY(var(--card-angle)) translateZ(160px) translateY(var(--card-y-mobile)) rotateZ(var(--card-tilt)) scale(var(--card-scale));
+  }
+}
+      `}</style>
       <section id="program" className="ecosystem-section">
         <div className="section-intro">
           <div>
@@ -211,7 +254,7 @@ export default function Ecosystem({ navigate }) {
       {/* Dampak yang Berputar: Neo-Brutalist 3D Carousel Section */}
       <section className="dampak-carousel-section relative z-0">
         {/* Wave Divider at the top of the section */}
-        <div className="absolute -top-[2px] left-0 w-full overflow-hidden leading-none z-10 pointer-events-none" style={{ transform: 'rotate(180deg)' }}>
+        <div className="absolute -top-[2px] left-0 w-full overflow-hidden leading-none z-10 pointer-events-none rotate-180">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[40px] md:h-[80px]">
             <path d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1200,80 1200,80 L1200,120 L0,120 Z" fill="#faf1e1"></path>
           </svg>
@@ -219,7 +262,7 @@ export default function Ecosystem({ navigate }) {
         <div className="pointer-events-none absolute left-1/2 top-[34%] h-[680px] w-[900px] -translate-x-1/2 rounded-full bg-[#738a43]/10 blur-[160px] z-0" />
         <div className="craftly-batik pointer-events-none absolute inset-y-0 right-0 w-[82%] opacity-[.06] z-0" />
         <div className="craftly-batik-fade pointer-events-none absolute inset-0 z-0" />
-        <div className="relative z-10 grid grid-cols-1 gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:items-center">
+        <div className="relative z-10 grid grid-cols-1 gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:items-center px-6 sm:px-8 max-w-[1280px] mx-auto">
           <div className="relative z-10 order-2 max-w-3xl text-center lg:order-1 lg:text-left">
             <h1 className="mx-auto max-w-3xl text-[clamp(2.25rem,10vw,3.4rem)] font-black leading-[0.95] tracking-[-.055em] text-[#faf0d7] lg:mx-0 lg:text-[clamp(3.5rem,6vw,5.5rem)] lg:leading-[0.92] lg:tracking-[-.065em]">
               <span className="text-[#8fa360]">Dampak yang</span>
@@ -251,7 +294,6 @@ export default function Ecosystem({ navigate }) {
                 {productFrames.map(
                   (
                     {
-                      icon: FrameIcon,
                       label,
                       title,
                       accent,
@@ -274,8 +316,6 @@ export default function Ecosystem({ navigate }) {
                         backgroundImage: image
                           ? `linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 60%, rgba(0,0,0,0.55) 100%), url("${image}")`
                           : `linear-gradient(155deg, ${accent}38, rgba(35,27,24,.92) 72%)`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
                       }}
                     >
                       <div className="absolute bottom-2 left-2 right-2 flex flex-col items-start text-left md:bottom-4 md:left-4 md:right-4">
@@ -300,59 +340,6 @@ export default function Ecosystem({ navigate }) {
                 </p>
               </div>
             </div>
-
-            <style>{`
-              .craftly-batik {
-                background-image:
-                  radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%),
-                  radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%);
-                background-position: 0 0, 42px 42px;
-                background-size: 84px 84px;
-                color: #dca11d;
-                transform: rotate(-7deg) scale(1.12);
-              }
-              .craftly-batik-fade {
-                background: linear-gradient(90deg, #5c3810 12%, rgba(92, 56, 16, 0.7) 42%, rgba(92, 56, 16, 0.08) 100%);
-              }
-              .craftly-batik-light {
-                background-image:
-                  radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 25%, transparent 26% 44%, currentColor 45% 46%, transparent 47%),
-                  radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 25%, transparent 26% 44%, currentColor 45% 46%, transparent 47%);
-                background-position: 0 0, 54px 54px;
-                background-size: 108px 108px;
-                color: #738a43;
-              }
-              .craftly-carousel-orbit {
-                will-change: transform;
-              }
-              .craftly-carousel-orbit article {
-                transform: rotateY(var(--card-angle)) translateZ(255px) translateY(var(--card-y)) rotateZ(var(--card-tilt)) scale(var(--card-scale));
-              }
-              .craftly-carousel-orbit article > * {
-                backface-visibility: hidden;
-              }
-              .craftly-carousel-orbit article::after {
-                content: "FITRAH TUMBUH";
-                position: absolute;
-                inset: 0;
-                z-index: 10;
-                display: grid;
-                place-items: center;
-                background: linear-gradient(145deg, #1c1512, #2d221d);
-                color: rgba(250,240,215,.28);
-                font-family: monospace;
-                font-size: 8px;
-                font-weight: 800;
-                letter-spacing: .22em;
-                transform: rotateY(180deg) translateZ(1px);
-                backface-visibility: hidden;
-              }
-              @media (max-width: 767px) {
-                .craftly-carousel-orbit article {
-                  transform: rotateY(var(--card-angle)) translateZ(160px) translateY(var(--card-y-mobile)) rotateZ(var(--card-tilt)) scale(var(--card-scale));
-                }
-              }
-            `}</style>
           </div>
         </div>
       </section>
