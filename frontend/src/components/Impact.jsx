@@ -1,38 +1,42 @@
 const stats=[['10.000+','Peserta aktif'],['5.000+','Pemuda terlatih'],['100+','Sekolah mitra'],['100+','UMKM binaan'],['10+','Wilayah prioritas']]
-export default function Impact() {
+
+export function ImpactRibbon() {
   const marqueeStats = [...stats, ...stats, ...stats]
   return (
-    <>
-      <div className="impact-ribbon">
-        <div className="impact-ribbon-track">
-          {marqueeStats.map(([n, l], index) => (
-            <span key={`${l}-${index}`} className="impact-ribbon-wrapper">
-              <span className="impact-ribbon-item">
-                <strong>{n}</strong>
-                <span>{l}</span>
-              </span>
-              <span className="impact-ribbon-separator">•</span>
+    <div className="impact-ribbon">
+      <div className="impact-ribbon-track">
+        {marqueeStats.map(([n, l], index) => (
+          <span key={`${l}-${index}`} className="impact-ribbon-wrapper">
+            <span className="impact-ribbon-item">
+              <strong>{n}</strong>
+              <span>{l}</span>
             </span>
-          ))}
-        </div>
+            <span className="impact-ribbon-separator">•</span>
+          </span>
+        ))}
       </div>
-      <section id="kontak" className="cta-section">
-        <div>
-          <p className="eyebrow"><span></span> Mari tumbuh bersama</p>
-          <h2>Mulai langkah baik<br />untuk masa depan.</h2>
-        </div>
-        <div>
-          <p>Program, kemitraan, atau sekadar ingin berkenalan — tim kami siap menyambut Anda.</p>
-          <a
-            className="button"
-            href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh."
-            target="_blank"
-            rel="noreferrer"
-          >
-            Hubungi via WhatsApp <span>↗</span>
-          </a>
-        </div>
-      </section>
-    </>
+    </div>
+  )
+}
+
+export default function Impact() {
+  return (
+    <section id="kontak" className="cta-section">
+      <div>
+        <p className="eyebrow"><span></span> Mari tumbuh bersama</p>
+        <h2>Mulai langkah baik<br />untuk masa depan.</h2>
+      </div>
+      <div>
+        <p>Program, kemitraan, atau sekadar ingin berkenalan — tim kami siap menyambut Anda.</p>
+        <a
+          className="button"
+          href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh."
+          target="_blank"
+          rel="noreferrer"
+        >
+          Hubungi via WhatsApp <span>↗</span>
+        </a>
+      </div>
+    </section>
   )
 }

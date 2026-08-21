@@ -1,6 +1,7 @@
 import Hero from '../Hero'
 import Ecosystem from '../Ecosystem'
-import Impact from '../Impact'
+import Impact, { ImpactRibbon } from '../Impact'
+import DampakCarousel from '../DampakCarousel'
 
 export default function HomePage({ navigate }) {
   return (
@@ -132,6 +133,9 @@ export default function HomePage({ navigate }) {
           </div>
         </div>
       </section>
+
+      <DampakCarousel />
+      <ImpactRibbon />
 
       {/* SECTION APA YANG BISA ANDA DAPATKAN? */}
       <section className="offerings-section">
