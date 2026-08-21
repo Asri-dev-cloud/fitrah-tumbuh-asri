@@ -308,3 +308,5 @@ app.get('/api/talent-participants', authenticateAdmin, async (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Clean registration server running on port ${PORT}`);
 });
+
+export default app;
