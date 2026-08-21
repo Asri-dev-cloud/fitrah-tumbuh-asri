@@ -407,7 +407,7 @@ function queryJson(text, params) {
 
 const dbWrapper = {
   query: async (text, params) => {
-    if (usePostgres) {
+    if (connectionString) {
       try {
         return await pool.query(text, params);
       } catch (err) {
