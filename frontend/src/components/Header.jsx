@@ -6,18 +6,15 @@ const navItems = [
   ['filosofi', 'Filosofi Fitrah'],
   ['program', 'Program'],
   ['edukasi', 'Edukasi'],
-  ['galeri', 'Galeri'],
   ['portofolio', 'Portofolio'],
-  ['kolaborasi', 'Kolaborasi'],
-  ['kontak', 'Kontak']
+  ['kolaborasi', 'Kolaborasi']
 ]
 
 const mobileItems = [
   ['beranda', '⌂', 'Home'],
   ['program', '◒', 'Program'],
   ['edukasi', '▤', 'Edukasi'],
-  ['dampak', '⌁', 'Dampak'],
-  ['kontak', '◌', 'Kontak']
+  ['dampak', '⌁', 'Dampak']
 ]
 
 export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
@@ -67,9 +64,8 @@ export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
             ))}
             <a 
               className="button button-small mobile-only-cta" 
-              href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh." 
-              target="_blank" 
-              rel="noreferrer"
+              href="#daftar" 
+              onClick={(e) => { e.preventDefault(); navigate('daftar'); }}
               style={{ marginTop: '8px' }}
             >
               Daftar ↗
@@ -79,9 +75,8 @@ export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
           <div className="nav-actions">
             <a 
               className="button button-small" 
-              href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh." 
-              target="_blank" 
-              rel="noreferrer"
+              href="#daftar" 
+              onClick={(e) => { e.preventDefault(); navigate('daftar'); }}
             >
               Daftar <span>↗</span>
             </a>

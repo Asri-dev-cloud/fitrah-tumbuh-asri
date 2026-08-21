@@ -31,6 +31,7 @@ export default function Footer({ navigate }) {
       <div className="footer-bottom">
         <span>© 2026 Fitrah Tumbuh.</span>
         <span>Kabupaten Bandung · Kabupaten Sumedang</span>
+
       </div>
     </footer>
   )

@@ -1,10 +1,3 @@
-const problems = [
-  ['01', 'Orientasi Nilai Kaku', 'Anak tumbuh mengejar angka, bukan makna.'],
-  ['02', 'Terpisah dari Alam', 'Ruang belajar makin jauh dari kehidupan nyata.'],
-  ['03', 'Minim Pengalaman Kerja', 'Pemuda perlu ruang mencoba & bertumbuh.'],
-  ['04', 'Ibu Tanpa Ruang Berkarya', 'Potensi keluarga menunggu untuk diberdayakan.']
-]
-
 const photos = [
   'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80', // Photo 1 (t1)
   'https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=400&q=80', // Photo 2 (t2)
@@ -25,8 +18,8 @@ const photos = [
 
 export default function Hero() {
   return (
-    <>
-      <section id="beranda" className="hero-section">
+    <section className="hero-section-wrapper">
+      <div id="beranda" className="hero-section">
         <div className="hero-copy">
           <h1>Bertumbuh dalam <em>fitrah,</em><br />bergerak untuk sesama.</h1>
           <p className="hero-text">
@@ -52,24 +45,13 @@ export default function Hero() {
             />
           ))}
         </div>
-      </section>
+      </div>
 
-      <section className="problem-section">
-        <div className="problem-title">
-          <p className="eyebrow"><span></span> Tantangan masa kini</p>
-          <h2>Setiap anak berhak<br />menemukan jalannya.</h2>
-        </div>
-        <div className="problem-grid">
-          {problems.map(([num, title, text]) => (
-            <article key={num} className="problem-card">
-              <span>{num}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <a href="#program" aria-label={`Selengkapnya tentang ${title}`}>↗</a>
-            </article>
-          ))}
-        </div>
-      </section>
-    </>
+      <div className="wave-divider">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1200,80 1200,80 L1200,120 L0,120 Z" className="shape-fill"></path>
+        </svg>
+      </div>
+    </section>
   )
 }
