@@ -440,6 +440,46 @@ const renderEbookCover = (p) => {
   );
 };
 
+const cleanEmbedUrl = (url) => {
+  if (!url) return '';
+  let cleaned = url.trim();
+
+  // 1. Google Slides (Presentation)
+  if (cleaned.includes('docs.google.com/presentation')) {
+    if (cleaned.includes('/edit')) {
+      cleaned = cleaned.split('/edit')[0] + '/embed';
+    } else if (cleaned.includes('/pub')) {
+      cleaned = cleaned.split('/pub')[0] + '/embed';
+    }
+    // Append rm=minimal to hide control bar
+    if (!cleaned.includes('rm=minimal')) {
+      cleaned = cleaned.includes('?') ? `${cleaned}&rm=minimal` : `${cleaned}?rm=minimal`;
+    }
+  }
+  // 2. Google Docs (Document)
+  else if (cleaned.includes('docs.google.com/document')) {
+    if (cleaned.includes('/edit')) {
+      cleaned = cleaned.split('/edit')[0] + '/preview';
+    }
+  }
+  // 3. Google Sheets (Spreadsheet)
+  else if (cleaned.includes('docs.google.com/spreadsheets')) {
+    if (cleaned.includes('/edit')) {
+      cleaned = cleaned.split('/edit')[0] + '/preview';
+    }
+  }
+  // 4. Google Drive files
+  else if (cleaned.includes('drive.google.com/file/d/')) {
+    if (cleaned.includes('/view')) {
+      cleaned = cleaned.split('/view')[0] + '/preview';
+    } else if (cleaned.includes('/edit')) {
+      cleaned = cleaned.split('/edit')[0] + '/preview';
+    }
+  }
+
+  return cleaned;
+};
+
 export default function ProdukPage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -454,6 +494,18 @@ export default function ProdukPage() {
   const [formError, setFormError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderSuccess, setOrderSuccess] = useState(null)
+
+  const toggleFullScreen = () => {
+    const element = document.getElementById('ebook-iframe-container');
+    if (!element) return;
+    if (!document.fullscreenElement) {
+      element.requestFullscreen().catch(err => {
+        console.error(`Error enabling full-screen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -961,52 +1013,86 @@ export default function ProdukPage() {
       )}
 
       {/* Ebook Reader Modal */}
-      {activeEmbedUrl && (
-        <div className="modal-overlay" onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }}>
-          <div className="modal-card" style={{ maxWidth: '960px', width: '90%', height: '80vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              <div>
-                <h2>Membaca Ebook</h2>
-                <p style={{ fontSize: '13px', color: 'var(--color-brand-muted)' }}>{activeEbookTitle}</p>
+      {activeEmbedUrl && (() => {
+        const finalEmbedUrl = cleanEmbedUrl(activeEmbedUrl);
+        return (
+          <div className="modal-overlay" onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }}>
+            <div className="modal-card" style={{ maxWidth: '960px', width: '90%', height: '80vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
+              <div className="modal-header">
+                <div>
+                  <h2>Membaca Ebook</h2>
+                  <p style={{ fontSize: '13px', color: 'var(--color-brand-muted)' }}>{activeEbookTitle}</p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <button 
+                    onClick={toggleFullScreen} 
+                    title="Layar Lebar / Fullscreen"
+                    style={{ 
+                      background: 'none', 
+                      border: 'none', 
+                      cursor: 'pointer', 
+                      padding: '8px', 
+                      color: 'var(--color-brand-brown)', 
+                      display: 'inline-flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      marginRight: '12px',
+                      borderRadius: '4px',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(92, 56, 16, 0.05)'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                  </button>
+                  <button className="modal-close-btn" onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }}>✕</button>
+                </div>
               </div>
-              <button className="modal-close-btn" onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }}>✕</button>
-            </div>
-            <div className="modal-body" style={{ flex: 1, padding: 0, overflow: 'hidden', position: 'relative' }}>
-              <iframe 
-                src={activeEmbedUrl} 
-                frameBorder="0" 
-                width="100%" 
-                height="100%" 
-                allowFullScreen={true} 
-                mozallowfullscreen="true" 
-                webkitallowfullscreen="true"
-                style={{ border: 'none', width: '100%', height: '100%' }}
-              ></iframe>
-            </div>
-            <div className="modal-footer" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(92, 56, 16, 0.08)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', color: 'var(--color-brand-muted)' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
-                Ingin mengunduh berkas PDF? Hubungi Admin via WhatsApp.
-              </span>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <a 
-                  href={`https://wa.me/${WHATSAPP_ADMIN}?text=${encodeURIComponent('Halo Fitrah Tumbuh, saya ingin meminta file unduhan untuk ' + activeEbookTitle + '.')}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button button-small"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                  Minta Unduh (WhatsApp)
-                </a>
-                <button onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }} className="secondary-button button-small">
-                  Tutup
-                </button>
+              <div id="ebook-iframe-container" className="modal-body" style={{ flex: 1, padding: 0, overflow: 'hidden', position: 'relative', backgroundColor: '#fff' }}>
+                <iframe 
+                  src={finalEmbedUrl} 
+                  frameBorder="0" 
+                  width="100%" 
+                  height="100%" 
+                  allowFullScreen={true} 
+                  mozallowfullscreen="true" 
+                  webkitallowfullscreen="true"
+                  style={{ border: 'none', width: '100%', height: '100%' }}
+                ></iframe>
+              </div>
+              <div className="modal-footer" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(92, 56, 16, 0.08)' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', color: 'var(--color-brand-muted)' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+                  Ingin mengunduh berkas PDF? Hubungi Admin via WhatsApp.
+                </span>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button 
+                    onClick={toggleFullScreen}
+                    className="button button-small"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: 'var(--color-brand-green)' }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    Layar Lebar
+                  </button>
+                  <a 
+                    href={`https://wa.me/${WHATSAPP_ADMIN}?text=${encodeURIComponent('Halo Fitrah Tumbuh, saya ingin meminta file unduhan untuk ' + activeEbookTitle + '.')}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="button button-small"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    Minta Unduh (WhatsApp)
+                  </a>
+                  <button onClick={() => { setActiveEmbedUrl(null); setActiveEbookTitle(''); }} className="secondary-button button-small">
+                    Tutup
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   )
 }
