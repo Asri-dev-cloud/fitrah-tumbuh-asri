@@ -14,7 +14,7 @@
     <script>
       (function() {
         const gaId = "%VITE_GA_ID%";
-        if (gaId && gaId !== "%VITE_GA_ID%" && !gaId.startsWith("%") && gaId.trim() !== "") {
+        if (gaId && !gaId.startsWith("%") && gaId.trim() !== "") {
           const script = document.createElement('script');
           script.async = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
@@ -32,7 +32,7 @@
     <script>
       (function() {
         const pixelId = "%VITE_META_PIXEL_ID%";
-        if (pixelId && pixelId !== "%VITE_META_PIXEL_ID%" && !pixelId.startsWith("%") && pixelId.trim() !== "") {
+        if (pixelId && !pixelId.startsWith("%") && pixelId.trim() !== "") {
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
