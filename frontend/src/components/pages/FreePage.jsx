@@ -3,20 +3,7 @@ import { trackFormSubmit } from '../../utils/analytics'
 
 import { API_BASE_URL } from '../../utils/config'
 
-const FALLBACK_FREE_RESOURCES = [
-  {
-    id: 9,
-    title: "Youth Project Starter Checklist",
-    description: "Lembar panduan perancangan proyek mikro sosial/bisnis bagi generasi muda. Memuat 15 checklist utama dari ideasi hingga peluncuran perdana.",
-    price: "Rp 0",
-    image_url: "/14.jpg",
-    type: "digital_product",
-    target_audience: "Pemuda",
-    whatsapp_text: "Halo Fitrah Tumbuh, saya ingin mengunduh Youth Project Starter Checklist secara gratis.",
-    download_link: "https://fitrahtumbuh.id/downloads/youth-checklist.pdf",
-    is_free: true
-  }
-]
+const FALLBACK_FREE_RESOURCES = []
 
 const renderEbookCover = (p) => {
   let cleanTitle = p.title.replace(/^Ebook\s+Modul\s+/i, 'Modul ')

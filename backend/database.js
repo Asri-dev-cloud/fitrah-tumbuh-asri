@@ -65,6 +65,7 @@ pool.query('SELECT NOW()', async (err, res) => {
     try {
       await pool.query('ALTER TABLE store_items ADD COLUMN IF NOT EXISTS embed_url TEXT');
       await pool.query("DELETE FROM store_items WHERE title = 'Fitrah Family Check: Seberapa Bertumbuh Keluarga Kita?'");
+      await pool.query("DELETE FROM store_items WHERE title = 'Youth Project Starter Checklist'");
       await syncDbJsonToPostgres();
     } catch (errDb) {
       console.warn('Database startup schema update failed:', errDb.message);

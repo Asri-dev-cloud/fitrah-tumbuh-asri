@@ -350,6 +350,96 @@ const FALLBACK_PRODUCTS = [
   }
 ]
 
+const renderEbookCover = (p) => {
+  let cleanTitle = p.title.replace(/^Ebook\s+Modul\s+/i, 'Modul ')
+                          .replace(/^Ebook:\s+/i, '')
+                          .replace(/^Ebook\s+/i, '')
+                          .trim();
+  
+  let titleParts = cleanTitle.split(' - ');
+  let titleText = titleParts[0];
+  let subtitleText = titleParts[1] || "";
+
+  const palettes = [
+    { bg: 'linear-gradient(135deg, #1C523A 0%, #0E3523 100%)', text: '#FDFCF7', muted: '#CDE5DB', border: 'rgba(255, 255, 255, 0.22)' }, // Emerald Green
+    { bg: 'linear-gradient(135deg, #A83A24 0%, #762312 100%)', text: '#FDFCF7', muted: '#F3D2CC', border: 'rgba(255, 255, 255, 0.22)' }, // Terracotta
+    { bg: 'linear-gradient(135deg, #234582 0%, #112857 100%)', text: '#FDFCF7', muted: '#CCD7ED', border: 'rgba(255, 255, 255, 0.22)' }, // Indigo Blue
+    { bg: 'linear-gradient(135deg, #C58A24 0%, #906110 100%)', text: '#FDFCF7', muted: '#F7E7CD', border: 'rgba(255, 255, 255, 0.22)' }, // Warm Ochre
+    { bg: 'linear-gradient(135deg, #742551 0%, #4D1232 100%)', text: '#FDFCF7', muted: '#ECCFE0', border: 'rgba(255, 255, 255, 0.22)' }, // Plum
+    { bg: 'linear-gradient(135deg, #2E5A36 0%, #19381E 100%)', text: '#FDFCF7', muted: '#CEE2D2', border: 'rgba(255, 255, 255, 0.22)' }, // Deep Forest
+    { bg: 'linear-gradient(135deg, #6C7030 0%, #474B19 100%)', text: '#FDFCF7', muted: '#E7E9CD', border: 'rgba(255, 255, 255, 0.22)' }, // Olive
+    { bg: 'linear-gradient(135deg, #206E6C 0%, #0E4948 100%)', text: '#FDFCF7', muted: '#CDE5E4', border: 'rgba(255, 255, 255, 0.22)' }, // Teal
+    { bg: 'linear-gradient(135deg, #6C648B 0%, #473E63 100%)', text: '#FDFCF7', muted: '#E5E2ED', border: 'rgba(255, 255, 255, 0.22)' }, // Lavender
+    { bg: 'linear-gradient(135deg, #B56B45 0%, #854826 100%)', text: '#FDFCF7', muted: '#F6E2D8', border: 'rgba(255, 255, 255, 0.22)' }, // Clay
+    { bg: 'linear-gradient(135deg, #A86472 0%, #7B414C 100%)', text: '#FDFCF7', muted: '#F4E2E5', border: 'rgba(255, 255, 255, 0.22)' }, // Muted Rose
+    { bg: 'linear-gradient(135deg, #353942 0%, #1D2026 100%)', text: '#FDFCF7', muted: '#D2D4D7', border: 'rgba(255, 255, 255, 0.22)' }, // Dark Charcoal
+    { bg: 'linear-gradient(135deg, #9C7A4A 0%, #6F532B 100%)', text: '#FDFCF7', muted: '#F2E8DC', border: 'rgba(255, 255, 255, 0.22)' }, // Bronze
+    { bg: 'linear-gradient(135deg, #5C3810 0%, #3B2104 100%)', text: '#FDFCF7', muted: '#EFE3D5', border: 'rgba(255, 255, 255, 0.22)' }, // Dark Wood
+    { bg: 'linear-gradient(135deg, #B83A58 0%, #852136 100%)', text: '#FDFCF7', muted: '#F7D2DB', border: 'rgba(255, 255, 255, 0.22)' }, // Crimson
+    { bg: 'linear-gradient(135deg, #4A7A96 0%, #2A5168 100%)', text: '#FDFCF7', muted: '#D8E5ED', border: 'rgba(255, 255, 255, 0.22)' }  // Ocean Blue
+  ];
+  const palette = palettes[p.id % palettes.length];
+
+  const titleLower = cleanTitle.toLowerCase();
+  
+  // Choose icon based on topic keyword
+  let iconElement;
+  if (titleLower.includes('menggali akar')) {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22V12M12 12a5 5 0 0 1 5-5h3M12 12a5 5 0 0 0-5-5H4M20 7c0-2-2-4-5-4S12 5 12 7M4 7c0-2 2-4 5-4s3 2 3 4" />
+        <path d="M12 12c-1.5 2-3.5 3-6 3m6-3c1.5 2 3.5 3 6 3" />
+      </svg>
+    );
+  } else if (titleLower.includes('akhlak') || titleLower.includes('iman') || titleLower.includes('hygiene') || titleLower.includes('ibadah') || titleLower.includes('istiqamah')) {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    );
+  } else if (titleLower.includes('jalan') || titleLower.includes('waktu') || titleLower.includes('rtp') || titleLower.includes('fase') || titleLower.includes('peluncuran') || titleLower.includes('peta')) {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    );
+  } else if (titleLower.includes('skill') || titleLower.includes('talent') || titleLower.includes('anugerah') || titleLower.includes('digital')) {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+      </svg>
+    );
+  } else if (titleLower.includes('sosial') || titleLower.includes('proyek') || titleLower.includes('mentor') || titleLower.includes('kontribusi')) {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    );
+  } else {
+    iconElement = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/>
+      </svg>
+    );
+  }
+
+  return (
+    <div className="custom-ebook-cover-rendered" style={{ background: palette.bg }}>
+      <div className="ebook-cover-spine"></div>
+      <div className="ebook-cover-border" style={{ borderColor: palette.border }}></div>
+      <div className="ebook-cover-content">
+        <span className="ebook-cover-tag" style={{ color: palette.muted }}>EBOOK</span>
+        <div className="ebook-cover-icon-box" style={{ borderColor: palette.border }}>
+          {iconElement}
+        </div>
+        <h4 className="ebook-cover-title" style={{ color: palette.text }}>{titleText}</h4>
+        {subtitleText && <p className="ebook-cover-subtitle" style={{ color: palette.muted }}>{subtitleText}</p>}
+        <div className="ebook-cover-footer-brand" style={{ color: palette.muted }}>Fitrah Tumbuh</div>
+      </div>
+    </div>
+  );
+};
+
 export default function ProdukPage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -364,96 +454,6 @@ export default function ProdukPage() {
   const [formError, setFormError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderSuccess, setOrderSuccess] = useState(null)
-
-  const renderEbookCover = (p) => {
-    let cleanTitle = p.title.replace(/^Ebook\s+Modul\s+/i, 'Modul ')
-                            .replace(/^Ebook:\s+/i, '')
-                            .replace(/^Ebook\s+/i, '')
-                            .trim();
-    
-    let titleParts = cleanTitle.split(' - ');
-    let titleText = titleParts[0];
-    let subtitleText = titleParts[1] || "";
-
-    const palettes = [
-      { bg: 'linear-gradient(135deg, #1C523A 0%, #0E3523 100%)', text: '#FDFCF7', muted: '#CDE5DB', border: 'rgba(255, 255, 255, 0.22)' }, // Emerald Green
-      { bg: 'linear-gradient(135deg, #A83A24 0%, #762312 100%)', text: '#FDFCF7', muted: '#F3D2CC', border: 'rgba(255, 255, 255, 0.22)' }, // Terracotta
-      { bg: 'linear-gradient(135deg, #234582 0%, #112857 100%)', text: '#FDFCF7', muted: '#CCD7ED', border: 'rgba(255, 255, 255, 0.22)' }, // Indigo Blue
-      { bg: 'linear-gradient(135deg, #C58A24 0%, #906110 100%)', text: '#FDFCF7', muted: '#F7E7CD', border: 'rgba(255, 255, 255, 0.22)' }, // Warm Ochre
-      { bg: 'linear-gradient(135deg, #742551 0%, #4D1232 100%)', text: '#FDFCF7', muted: '#ECCFE0', border: 'rgba(255, 255, 255, 0.22)' }, // Plum
-      { bg: 'linear-gradient(135deg, #2E5A36 0%, #19381E 100%)', text: '#FDFCF7', muted: '#CEE2D2', border: 'rgba(255, 255, 255, 0.22)' }, // Deep Forest
-      { bg: 'linear-gradient(135deg, #6C7030 0%, #474B19 100%)', text: '#FDFCF7', muted: '#E7E9CD', border: 'rgba(255, 255, 255, 0.22)' }, // Olive
-      { bg: 'linear-gradient(135deg, #206E6C 0%, #0E4948 100%)', text: '#FDFCF7', muted: '#CDE5E4', border: 'rgba(255, 255, 255, 0.22)' }, // Teal
-      { bg: 'linear-gradient(135deg, #6C648B 0%, #473E63 100%)', text: '#FDFCF7', muted: '#E5E2ED', border: 'rgba(255, 255, 255, 0.22)' }, // Lavender
-      { bg: 'linear-gradient(135deg, #B56B45 0%, #854826 100%)', text: '#FDFCF7', muted: '#F6E2D8', border: 'rgba(255, 255, 255, 0.22)' }, // Clay
-      { bg: 'linear-gradient(135deg, #A86472 0%, #7B414C 100%)', text: '#FDFCF7', muted: '#F4E2E5', border: 'rgba(255, 255, 255, 0.22)' }, // Muted Rose
-      { bg: 'linear-gradient(135deg, #353942 0%, #1D2026 100%)', text: '#FDFCF7', muted: '#D2D4D7', border: 'rgba(255, 255, 255, 0.22)' }, // Dark Charcoal
-      { bg: 'linear-gradient(135deg, #9C7A4A 0%, #6F532B 100%)', text: '#FDFCF7', muted: '#F2E8DC', border: 'rgba(255, 255, 255, 0.22)' }, // Bronze
-      { bg: 'linear-gradient(135deg, #5C3810 0%, #3B2104 100%)', text: '#FDFCF7', muted: '#EFE3D5', border: 'rgba(255, 255, 255, 0.22)' }, // Dark Wood
-      { bg: 'linear-gradient(135deg, #B83A58 0%, #852136 100%)', text: '#FDFCF7', muted: '#F7D2DB', border: 'rgba(255, 255, 255, 0.22)' }, // Crimson
-      { bg: 'linear-gradient(135deg, #4A7A96 0%, #2A5168 100%)', text: '#FDFCF7', muted: '#D8E5ED', border: 'rgba(255, 255, 255, 0.22)' }  // Ocean Blue
-    ];
-    const palette = palettes[p.id % palettes.length];
-
-    const titleLower = cleanTitle.toLowerCase();
-    
-    // Choose icon based on topic keyword
-    let iconElement;
-    if (titleLower.includes('menggali akar')) {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22V12M12 12a5 5 0 0 1 5-5h3M12 12a5 5 0 0 0-5-5H4M20 7c0-2-2-4-5-4S12 5 12 7M4 7c0-2 2-4 5-4s3 2 3 4" />
-          <path d="M12 12c-1.5 2-3.5 3-6 3m6-3c1.5 2 3.5 3 6 3" />
-        </svg>
-      );
-    } else if (titleLower.includes('akhlak') || titleLower.includes('iman') || titleLower.includes('hygiene') || titleLower.includes('ibadah') || titleLower.includes('istiqamah')) {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      );
-    } else if (titleLower.includes('jalan') || titleLower.includes('waktu') || titleLower.includes('rtp') || titleLower.includes('fase') || titleLower.includes('peluncuran') || titleLower.includes('peta')) {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-      );
-    } else if (titleLower.includes('skill') || titleLower.includes('talent') || titleLower.includes('anugerah') || titleLower.includes('digital')) {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-        </svg>
-      );
-    } else if (titleLower.includes('sosial') || titleLower.includes('proyek') || titleLower.includes('mentor') || titleLower.includes('kontribusi')) {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-        </svg>
-      );
-    } else {
-      iconElement = (
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={palette.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/>
-        </svg>
-      );
-    }
-
-    return (
-      <div className="custom-ebook-cover-rendered" style={{ background: palette.bg }}>
-        <div className="ebook-cover-spine"></div>
-        <div className="ebook-cover-border" style={{ borderColor: palette.border }}></div>
-        <div className="ebook-cover-content">
-          <span className="ebook-cover-tag" style={{ color: palette.muted }}>EBOOK</span>
-          <div className="ebook-cover-icon-box" style={{ borderColor: palette.border }}>
-            {iconElement}
-          </div>
-          <h4 className="ebook-cover-title" style={{ color: palette.text }}>{titleText}</h4>
-          {subtitleText && <p className="ebook-cover-subtitle" style={{ color: palette.muted }}>{subtitleText}</p>}
-          <div className="ebook-cover-footer-brand" style={{ color: palette.muted }}>Fitrah Tumbuh</div>
-        </div>
-      </div>
-    );
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
