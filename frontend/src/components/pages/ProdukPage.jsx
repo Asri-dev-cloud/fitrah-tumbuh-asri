@@ -451,10 +451,6 @@ const cleanEmbedUrl = (url) => {
     } else if (cleaned.includes('/pub')) {
       cleaned = cleaned.split('/pub')[0] + '/embed';
     }
-    // Append rm=minimal to hide control bar
-    if (!cleaned.includes('rm=minimal')) {
-      cleaned = cleaned.includes('?') ? `${cleaned}&rm=minimal` : `${cleaned}?rm=minimal`;
-    }
   }
   // 2. Google Docs (Document)
   else if (cleaned.includes('docs.google.com/document')) {
@@ -1060,12 +1056,12 @@ export default function ProdukPage() {
                   style={{ border: 'none', width: '100%', height: '100%' }}
                 ></iframe>
               </div>
-              <div className="modal-footer" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(92, 56, 16, 0.08)' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', color: 'var(--color-brand-muted)' }}>
+              <div className="modal-footer ebook-reader-modal-footer" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(92, 56, 16, 0.08)' }}>
+                <span className="ebook-reader-modal-text" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', color: 'var(--color-brand-muted)' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
                   Ingin mengunduh berkas PDF? Hubungi Admin via WhatsApp.
                 </span>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div className="ebook-reader-modal-btn-group" style={{ display: 'flex', gap: '8px' }}>
                   <button 
                     onClick={toggleFullScreen}
                     className="button button-small"
