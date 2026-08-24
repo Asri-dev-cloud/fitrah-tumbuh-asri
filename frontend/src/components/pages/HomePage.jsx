@@ -24,7 +24,7 @@ export default function HomePage({ navigate }) {
             letter-spacing: -0.02em;
           }
           .needs-section p.subtitle {
-            color: var(--color-brand-muted, #6e645e);
+            color: var(--color-brand-dark, #231b18);
             font-size: 15px;
             margin-bottom: 40px;
           }
@@ -77,7 +77,7 @@ export default function HomePage({ navigate }) {
           }
           .need-card p {
             font-size: 13.5px;
-            color: var(--color-brand-muted, #6e645e);
+            color: var(--color-brand-dark, #231b18);
             line-height: 1.6;
             margin-bottom: 24px;
             flex-grow: 1;
@@ -154,7 +154,7 @@ export default function HomePage({ navigate }) {
             letter-spacing: -0.02em;
           }
           .offerings-section p.subtitle {
-            color: var(--color-brand-muted, #6e645e);
+            color: var(--color-brand-dark, #231b18);
             font-size: 15px;
             margin-bottom: 45px;
           }
@@ -192,8 +192,8 @@ export default function HomePage({ navigate }) {
             letter-spacing: 0.05em;
             margin-bottom: 16px;
           }
-          .offering-card.product .offering-badge { background: #738a43; }
-          .offering-card.learning .offering-badge { background: var(--color-brand-yellow, #dca11d); color: var(--color-brand-dark, #231b18); }
+          .offering-card.product .offering-badge { background: var(--color-brand-green); }
+          .offering-card.learning .offering-badge { background: var(--color-brand-yellow, #FFB200); color: var(--color-brand-dark, #231b18); }
           .offering-card.service .offering-badge { background: var(--color-brand-brown, #5c3810); }
 
           .offering-card h3 {
@@ -204,7 +204,7 @@ export default function HomePage({ navigate }) {
           }
           .offering-card p {
             font-size: 14px;
-            color: var(--color-brand-muted, #6e645e);
+            color: var(--color-brand-dark, #231b18);
             line-height: 1.6;
             margin-bottom: 24px;
             flex-grow: 1;

@@ -127,7 +127,7 @@ export default function Footer({ navigate }) {
             <img src="/ft.png" alt="Fitrah Tumbuh" />
           </div>
           <p style={{ maxWidth: '280px' }}>
-            Platform pendidikan dan pemberdayaan berbasis potensi yang berfokus pada keluarga, pemuda, pekerja, dan komunitas.
+            Platform pendidikan dan pemberdayaan berbasis potensi yang bergerak pada pendampingan keluarga, pemuda, pekerja, dan komunitas.
           </p>
           <div className="footer-socials">
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-link" aria-label="Instagram">
@@ -149,6 +149,7 @@ export default function Footer({ navigate }) {
             <a href="#tentang-kami" onClick={(e) => go(e, 'tentang-kami')}>Tentang Kami</a>
             <a href="#program" onClick={(e) => go(e, 'program')}>Program</a>
             <a href="#kolaborasi" onClick={(e) => go(e, 'kolaborasi')}>Kolaborasi</a>
+            <a href="#portofolio" onClick={(e) => go(e, 'portofolio')}>Portfolio</a>
           </div>
         </div>
 
@@ -158,6 +159,7 @@ export default function Footer({ navigate }) {
             <a href="#produk" onClick={(e) => go(e, 'produk')}>Produk Digital</a>
             <a href="#kelas" onClick={(e) => go(e, 'kelas')}>Kelas &amp; Webinar</a>
             <a href="#services" onClick={(e) => go(e, 'services')}>Jasa Konsultasi</a>
+            <a href="#talent-mapping" onClick={(e) => go(e, 'talent-mapping')}>Talent Mapping</a>
             <a href="#free" onClick={(e) => go(e, 'free')}>Resource Gratis</a>
           </div>
         </div>
@@ -165,7 +167,7 @@ export default function Footer({ navigate }) {
         <div className="footer-col">
           <h3>Wilayah &amp; Kontak</h3>
           <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
-            Kabupaten Bandung · Kabupaten Sumedang, Jawa Barat.
+            Bandung Raya, Jawa Barat.
           </p>
           <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.7)' }}>
             ✉ info@fitrahtumbuh.id

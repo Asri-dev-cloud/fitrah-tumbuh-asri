@@ -25,8 +25,8 @@ export default function Hero({ navigate }) {
             Apa itu Fitrah Tumbuh?
           </span>
           <h1>
-            Bertumbuh dalam <span className="highlight-fitrah">Fitrah</span>,<br />
-            Bergerak untuk <span className="highlight-sesama">Sesama</span>.
+            <span className="highlight-fitrah">Bertumbuh dalam Fitrah,</span><br />
+            <span className="highlight-sesama">Bergerak untuk Sesama.</span>
           </h1>
           <p className="hero-text">
             Platform pendidikan dan pengembangan potensi untuk keluarga, pemuda, pekerja, dan komunitas.

@@ -128,7 +128,7 @@ export default function DampakCarousel() {
           transform: rotate(-7deg) scale(1.12);
         }
         .craftly-batik-fade {
-          background: linear-gradient(90deg, #5c3810 12%, rgba(92, 56, 16, 0.7) 42%, rgba(92, 56, 16, 0.08) 100%);
+          background: linear-gradient(90deg, var(--color-brand-cream) 12%, rgba(255, 254, 232, 0.7) 42%, rgba(255, 254, 232, 0.08) 100%);
         }
         .craftly-carousel-orbit {
           will-change: transform;
@@ -181,7 +181,7 @@ export default function DampakCarousel() {
               <span className="text-[var(--color-brand-green)]">Dampak yang</span>
               <span className="block text-[var(--color-brand-yellow)]">Berputar.</span>
             </h1>
-            <p className="mx-auto mt-7 max-w-xl text-base font-medium leading-relaxed text-white/80 sm:text-lg lg:mx-0 lg:mt-8 lg:text-xl text-justify">
+            <p className="mx-auto mt-7 max-w-xl text-base font-medium leading-relaxed sm:text-lg lg:mx-0 lg:mt-8 lg:text-xl text-justify" style={{ color: '#1a110a' }}>
               Seluruh inisiatif kami bergerak dalam siklus melingkar yang saling menghidupi. Pembelajaran melahirkan kepedulian lingkungan, petualangan membentuk ketangguhan jiwa, dan kemandirian ekonomi keluarga diputar kembali untuk menyokong pendidikan generasi berikutnya.
             </p>
           </div>
@@ -244,10 +244,10 @@ export default function DampakCarousel() {
               </div>
 
               <div className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 text-center md:block">
-                <p className="text-xs font-black text-[#faf0d7]">
+                <p className="text-xs font-black" style={{ color: '#1a110a' }}>
                   Geser untuk menjelajahi pilar program.
                 </p>
-                <p className="mt-1 text-[10px] text-white/35">
+                <p className="mt-1 text-[10px]" style={{ color: 'rgba(26, 17, 10, 0.6)' }}>
                   Berputar otomatis · Diperbarui real-time
                 </p>
               </div>

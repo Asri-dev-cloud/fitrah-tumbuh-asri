@@ -9,10 +9,12 @@
   --color-brand-ivory: #FFF4A3;
   --color-brand-cream: #FFFEE8;
   --color-brand-dark: #231b18;
-  --color-brand-muted: #6e645e;
+  --color-brand-muted: #1a110a;
   --color-brand-soft-green: #FFF9C4;
   --color-brand-soft-peach: #FFE082;
   --color-brand-soft-yellow: #FFF59D;
+  --color-brand-bright-yellow: #FFEA00;
+  --color-brand-hero-yellow: #FFD600;
 }
 
 /* ==========================================================================
@@ -36,7 +38,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(180deg, #FFFEE8 0%, #FFF9C4 45%, #FFF59D 80%, #FFE082 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--color-brand-hero-yellow) 100%);
   background-attachment: scroll;
   color: var(--color-brand-dark);
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -294,7 +296,7 @@ p {
    ========================================================================== */
 .hero-section-wrapper {
   position: relative;
-  background-color: var(--color-brand-ivory, #faf0d7);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--color-brand-hero-yellow) 100%);
   width: 100%;
   padding-bottom: 90px;
   overflow: hidden;
@@ -339,7 +341,7 @@ p {
 }
 
 .hero-copy h1 {
-  font-size: clamp(38px, 4.5vw, 68px);
+  font-size: clamp(34px, 4.1vw, 60px);
   line-height: 1.05;
   letter-spacing: -2px;
   margin-bottom: 24px;
@@ -349,16 +351,18 @@ p {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
   font-style: italic;
-  color: var(--color-brand-brown, #5c3810);
+  color: var(--color-brand-green, #72B51B);
   letter-spacing: -1px;
+  white-space: nowrap;
 }
 
 .highlight-sesama {
   font-family: inherit;
   font-weight: 800;
-  color: var(--color-brand-yellow, #dca11d);
+  color: var(--color-brand-yellow, #FFB200);
   position: relative;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .highlight-sesama::after {
@@ -368,7 +372,7 @@ p {
   bottom: 0px;
   width: 100%;
   height: 4px;
-  background-color: var(--color-brand-yellow, #dca11d);
+  background-color: var(--color-brand-yellow, #FFB200);
   border-radius: 2px;
   opacity: 0.4;
 }
@@ -561,7 +565,7 @@ p {
 }
 
 .section-intro > p {
-  color: var(--color-brand-muted);
+  color: var(--color-brand-dark);
   font-size: 15px;
   max-width: 540px;
 }
@@ -587,15 +591,11 @@ p {
   min-height: 240px;
 }
 
-/* Interactive Card Background Themes */
-.pillar-card:nth-child(1), .pillar-card:nth-child(5) {
-  background-color: var(--color-brand-soft-yellow);
-}
-.pillar-card:nth-child(2), .pillar-card:nth-child(6) {
-  background-color: var(--color-brand-soft-peach);
-}
-.pillar-card:nth-child(3), .pillar-card:nth-child(4) {
+.pillar-card:nth-child(1), .pillar-card:nth-child(2), .pillar-card:nth-child(3) {
   background-color: var(--color-brand-soft-green);
+}
+.pillar-card:nth-child(4), .pillar-card:nth-child(5), .pillar-card:nth-child(6) {
+  background-color: var(--color-brand-soft-peach);
 }
 
 .pillar-card:hover {
@@ -641,7 +641,7 @@ p {
   font-size: 13px;
   line-height: 1.6;
   max-width: 100%;
-  color: var(--color-brand-muted);
+  color: var(--color-brand-dark);
   margin-bottom: 24px;
   flex-grow: 1;
 }
@@ -998,7 +998,7 @@ p {
    ========================================================================== */
 .inside-page {
   padding: 0 max(24px, calc((100vw - 1280px)/2)) 80px;
-  background: linear-gradient(180deg, #FFFEE8 0%, #FFF9C4 50%, #FFF59D 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--color-brand-hero-yellow) 100%);
   min-height: 100vh;
 }
 
@@ -1073,7 +1073,7 @@ p {
 
 /* Content Grid under Subpages */
 .registration-page {
-  background: linear-gradient(180deg, #f5f1e7 0%, #f2eadb 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--color-brand-hero-yellow) 100%);
   min-height: 100vh;
   padding: 64px 0 80px;
 }
