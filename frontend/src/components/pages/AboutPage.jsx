@@ -1,8 +1,7 @@
-
 const items = [
   {
     title: 'Sejarah Schole Fitrah',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80',
+    image: '/10.JPG',
     text: `Fitrah Tumbuh lahir dari perjalanan panjang Schole Fitrah, sebuah gerakan pendidikan berbasis komunitas yang percaya bahwa setiap anak, keluarga, dan pemuda memiliki fitrah serta potensi untuk tumbuh. 
 
 Membawa semangat yang sama dengan cakupan yang lebih luas, Fitrah Tumbuh menjadi ruang untuk belajar, bertumbuh, dan bergerak bersama.
@@ -11,7 +10,7 @@ Fitrah Tumbuh menghubungkan pendidikan, keluarga, lingkungan, dan pemberdayaan k
   },
   {
     title: 'Visi & Misi',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80',
+    image: '/12.jpg',
     text: `VISI : Menjadi lembaga pendidikan yang membantu keluarga menumbuhkan fitrah anak secara utuh, berlandaskan nilai ilahiah dan kemanusiaan.
 
 MISI:
@@ -21,7 +20,7 @@ MISI:
   },
   {
     title: 'Wilayah Bandung–Sumedang',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80',
+    image: '/4.jpg',
     text: `Kami membangun ruang belajar yang dekat dengan alam, keluarga, dan komunitas di wilayah Bandung dan Sumedang. 
 
 Melalui kolaborasi di wilayah ini, kami menghadirkan program yang memanfaatkan potensi lingkungan lokal untuk menumbuhkan kepedulian sosial dan lingkungan hidup secara nyata.`
@@ -463,7 +462,7 @@ export default function AboutPage() {
         <div className="about-hero-graphic">
           <div className="about-hero-image-wrapper">
             <img 
-              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=85" 
+              src="/11.jpg" 
               alt="Kegiatan Belajar Fitrah Tumbuh" 
             />
           </div>
@@ -480,10 +479,37 @@ export default function AboutPage() {
           <h2>Menumbuhkan manusia dengan cara yang dekat, konkret, dan penuh makna.</h2>
         </div>
         <div className="about-services-grid">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <article className="about-service-card" key={item.title}>
-              <div className="about-service-image">
-                <img src={item.image} alt={item.title} />
+              <div 
+                className="about-service-image" 
+                style={{
+                  background: index === 0 ? 'linear-gradient(135deg, #738a43 0%, #a4b97a 100%)' :
+                              index === 1 ? 'linear-gradient(135deg, #dca11d 0%, #fbd578 100%)' :
+                                            'linear-gradient(135deg, #5c3810 0%, #a0784d 100%)',
+                  height: '160px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                {/* Elegant background text/watermark */}
+                <div style={{
+                  position: 'absolute',
+                  fontSize: '56px',
+                  fontWeight: '900',
+                  color: 'rgba(255, 255, 255, 0.12)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  pointerEvents: 'none',
+                  userSelect: 'none',
+                  whiteSpace: 'nowrap'
+                }}>
+                  {index === 0 ? 'SEJARAH' : index === 1 ? 'VISI MISI' : 'WILAYAH'}
+                </div>
+                
                 <div className="card-accent-dot"></div>
               </div>
               <div className="about-service-info">

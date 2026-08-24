@@ -1,19 +1,19 @@
 const photos = [
-  'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80', // Photo 1 (t1)
-  'https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=400&q=80', // Photo 2 (t2)
-  'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80', // Photo 3 (t3 - Large)
-  'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80', // Photo 4 (l1)
-  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80', // Photo 5 (l2)
-  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80', // Photo 6 (m1 - Large)
-  'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=400&q=80', // Photo 7 (c1)
-  'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=400&q=80', // Photo 8 (c2)
-  'https://images.unsplash.com/photo-1560421683-6856ea585c78?auto=format&fit=crop&w=600&q=80', // Photo 9 (m2 - Large)
-  'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=400&q=80', // Photo 10 (r1)
-  'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=400&q=80', // Photo 11 (r2)
-  'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=400&q=80', // Photo 12 (b1)
-  'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?auto=format&fit=crop&w=600&q=80', // Photo 13 (m3 - Large, fixed URL)
-  'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80', // Photo 14 (b2)
-  'https://images.unsplash.com/photo-1545601445-4d6a0a0565f0?auto=format&fit=crop&w=400&q=80'  // Photo 15 (b3)
+  '/1.jpg',
+  '/2.jpg',
+  '/3.jpg',
+  '/4.jpg',
+  '/8.JPG',
+  '/10.JPG',
+  '/11.jpg',
+  '/12.jpg',
+  '/13.jpg',
+  '/14.jpg',
+  '/16.jpg',
+  '/17.jpg',
+  '/18.jpg',
+  '/19.jpg',
+  '/20.jpg'
 ]
 
 export default function Hero({ navigate }) {

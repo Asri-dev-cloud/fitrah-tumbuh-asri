@@ -1,7 +1,7 @@
 export default function TalentMappingHero() {
   return (
     <div className="inside-hero">
-      <img className="inside-photo" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85" alt="Peserta berdiskusi" />
+      <img className="inside-photo" src="/8.JPG" alt="Peserta berdiskusi" />
       <div className="inside-photo-overlay" />
       <div className="inside-copy">
         <p className="eyebrow"><span /> Talent Mapping</p>

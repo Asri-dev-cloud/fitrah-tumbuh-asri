@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
+import multer from 'multer';
 import pool from './database.js';
 
 dotenv.config();
@@ -11,6 +14,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.resolve('uploads')));
 
 app.get('/api/health', async (_req, res) => {
   try {
@@ -107,6 +113,34 @@ const authenticateAdmin = (req, res, next) => {
   }
 };
 
+// Ensure uploads directory exists
+const uploadDir = path.resolve('uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Multer storage config
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (_req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
+// POST /api/upload - Admin file upload
+app.post('/api/upload', authenticateAdmin, upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'Tidak ada berkas yang diunggah.' });
+  }
+  const fileUrl = `/uploads/${req.file.filename}`;
+  res.json({ fileUrl });
+});
+
 // POST /api/admin/login - Authenticate admin panel
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body;
@@ -130,7 +164,7 @@ app.get('/api/store-items', async (_req, res) => {
 
 // POST /api/store-items - Admin: Add new product/class/service
 app.post('/api/store-items', authenticateAdmin, async (req, res) => {
-  const { title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, speaker, class_date, class_time, quota } = req.body;
+  const { title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, embed_url, speaker, class_date, class_time, quota } = req.body;
 
   if (!title || !description || !price || !type || !target_audience) {
     return res.status(400).json({ message: 'Judul, deskripsi, harga, tipe, dan target audiens wajib diisi.' });
@@ -138,8 +172,8 @@ app.post('/api/store-items', authenticateAdmin, async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO store_items (title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, speaker, class_date, class_time, quota) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
-      [title, description, price, image_url || '', type, target_audience, whatsapp_text || '', download_link || '', is_free || false, speaker || '', class_date || '', class_time || '', quota ? Number(quota) : 0]
+      'INSERT INTO store_items (title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, embed_url, speaker, class_date, class_time, quota) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *',
+      [title, description, price, image_url || '', type, target_audience, whatsapp_text || '', download_link || '', is_free || false, embed_url || '', speaker || '', class_date || '', class_time || '', quota ? Number(quota) : 0]
     );
     res.status(201).json({ message: 'Produk berhasil ditambahkan!', item: result.rows[0] });
   } catch (error) {
@@ -151,7 +185,7 @@ app.post('/api/store-items', authenticateAdmin, async (req, res) => {
 // PUT /api/store-items/:id - Admin: Edit existing product/class/service
 app.put('/api/store-items/:id', authenticateAdmin, async (req, res) => {
   const { id } = req.params;
-  const { title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, speaker, class_date, class_time, quota } = req.body;
+  const { title, description, price, image_url, type, target_audience, whatsapp_text, download_link, is_free, embed_url, speaker, class_date, class_time, quota } = req.body;
 
   if (!title || !description || !price || !type || !target_audience) {
     return res.status(400).json({ message: 'Judul, deskripsi, harga, tipe, dan target audiens wajib diisi.' });
@@ -159,8 +193,8 @@ app.put('/api/store-items/:id', authenticateAdmin, async (req, res) => {
 
   try {
     const result = await pool.query(
-      'UPDATE store_items SET title=$1, description=$2, price=$3, image_url=$4, type=$5, target_audience=$6, whatsapp_text=$7, download_link=$8, is_free=$9, speaker=$10, class_date=$11, class_time=$12, quota=$13 WHERE id=$14 RETURNING *',
-      [title, description, price, image_url || '', type, target_audience, whatsapp_text || '', download_link || '', is_free || false, speaker || '', class_date || '', class_time || '', quota ? Number(quota) : 0, id]
+      'UPDATE store_items SET title=$1, description=$2, price=$3, image_url=$4, type=$5, target_audience=$6, whatsapp_text=$7, download_link=$8, is_free=$9, embed_url=$10, speaker=$11, class_date=$12, class_time=$13, quota=$14 WHERE id=$15 RETURNING *',
+      [title, description, price, image_url || '', type, target_audience, whatsapp_text || '', download_link || '', is_free || false, embed_url || '', speaker || '', class_date || '', class_time || '', quota ? Number(quota) : 0, id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ message: 'Produk tidak ditemukan.' });

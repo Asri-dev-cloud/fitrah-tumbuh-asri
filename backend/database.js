@@ -20,20 +20,57 @@ const pool = new Pool({
 });
 
 let usePostgres = false;
+const dbJsonPath = path.resolve('data/db.json');
+
+const syncDbJsonToPostgres = async () => {
+  try {
+    const dbData = JSON.parse(fs.readFileSync(dbJsonPath, 'utf8'));
+    const localItems = dbData.store_items || [];
+    
+    const pgItemsRes = await pool.query('SELECT title FROM store_items');
+    const existingTitles = new Set(pgItemsRes.rows.map(r => r.title.toLowerCase().trim()));
+    
+    for (const item of localItems) {
+      const titleLower = item.title.toLowerCase().trim();
+      if (!existingTitles.has(titleLower)) {
+        console.log(`Seeding missing store item to PostgreSQL: ${item.title}`);
+        await pool.query(
+          `INSERT INTO store_items (
+            title, description, price, image_url, type, target_audience, 
+            whatsapp_text, download_link, is_free, embed_url, speaker, 
+            class_date, class_time, quota
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
+          [
+            item.title, item.description, item.price, item.image_url || '', item.type, item.target_audience,
+            item.whatsapp_text || '', item.download_link || '', item.is_free, item.embed_url || '', item.speaker || '',
+            item.class_date || '', item.class_time || '', item.quota || 0
+          ]
+        );
+      }
+    }
+    console.log('PostgreSQL store_items database is up-to-date with db.json.');
+  } catch (syncErr) {
+    console.warn('Failed to sync db.json store_items to PostgreSQL:', syncErr.message);
+  }
+};
 
 // Test connection on startup
-pool.query('SELECT NOW()', (err, res) => {
+pool.query('SELECT NOW()', async (err, res) => {
   if (err) {
     console.warn('Database connection failed. Falling back to local JSON database. Error:', err.message);
     usePostgres = false;
   } else {
     console.log('Database connected successfully at:', res.rows[0].now);
     usePostgres = true;
+    try {
+      await pool.query('ALTER TABLE store_items ADD COLUMN IF NOT EXISTS embed_url TEXT');
+      await pool.query("DELETE FROM store_items WHERE title = 'Fitrah Family Check: Seberapa Bertumbuh Keluarga Kita?'");
+      await syncDbJsonToPostgres();
+    } catch (errDb) {
+      console.warn('Database startup schema update failed:', errDb.message);
+    }
   }
 });
-
-// JSON Fallback database implementation
-const dbJsonPath = path.resolve('data/db.json');
 
 function readJsonDb() {
   const initialDb = {

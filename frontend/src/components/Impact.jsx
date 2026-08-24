@@ -1,3 +1,5 @@
+import { WHATSAPP_ADMIN } from '../utils/config'
+
 const stats = [['10.000+', 'Peserta aktif'], ['5.000+', 'Pemuda terlatih'], ['100+', 'Sekolah mitra'], ['100+', 'UMKM binaan'], ['10+', 'Wilayah prioritas']]
 
 export function ImpactRibbon() {
@@ -30,7 +32,7 @@ export default function Impact() {
         <p>Program, kemitraan, atau sekadar ingin berkenalan — tim kami siap menyambut Anda.</p>
         <a
           className="button"
-          href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh."
+          href={`https://wa.me/${WHATSAPP_ADMIN}?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh.`}
           target="_blank"
           rel="noreferrer"
         >

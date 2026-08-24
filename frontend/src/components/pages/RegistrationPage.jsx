@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { trackFormSubmit } from '../../utils/analytics'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
+import { API_BASE_URL, WHATSAPP_ADMIN } from '../../utils/config'
 
 const roles = [
   {
@@ -85,7 +85,7 @@ const stepStyles = {
 }
 
 export default function RegistrationPage() {
-  const whatsappAdminNumber = '6285156916211'
+  const whatsappAdminNumber = WHATSAPP_ADMIN
   const [step, setStep] = useState(1)
   const [selectedRole, setSelectedRole] = useState('Mitra & Kolaborator')
   const [formData, setFormData] = useState({

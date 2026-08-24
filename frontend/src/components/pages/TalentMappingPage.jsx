@@ -6,7 +6,7 @@ import Results, { CompletionMessage } from './talentMapping/Results'
 import TalentMappingHero from './talentMapping/TalentMappingHero'
 import { calculateAnalysis, createEmptyAnswers, questions } from './talentMapping/data'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
+import { API_BASE_URL } from '../../utils/config'
 const INITIAL_PARTICIPANT = { name: '', age: '', institution: '' }
 
 export default function TalentMappingPage() {

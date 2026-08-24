@@ -16,7 +16,7 @@ import {
   Lock
 } from 'lucide-react'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
+import { API_BASE_URL } from '../../utils/config'
 
 export default function AdminDashboard({ navigate }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!sessionStorage.getItem('adminToken'))
@@ -37,6 +37,7 @@ export default function AdminDashboard({ navigate }) {
     title: '', description: '', price: '', image_url: '',
     type: 'digital_product', target_audience: 'Orangtua',
     whatsapp_text: '', download_link: '', is_free: false,
+    embed_url: '',
     speaker: '', class_date: '', class_time: '', quota: 0
   })
   const [crudError, setCrudError] = useState('')
@@ -236,6 +237,7 @@ export default function AdminDashboard({ navigate }) {
       title: '', description: '', price: '', image_url: '',
       type: 'digital_product', target_audience: 'Orangtua',
       whatsapp_text: '', download_link: '', is_free: false,
+      embed_url: '',
       speaker: '', class_date: '', class_time: '', quota: 0
     })
     setCrudError('')
@@ -252,6 +254,7 @@ export default function AdminDashboard({ navigate }) {
       target_audience: item.target_audience,
       whatsapp_text: item.whatsapp_text || '',
       download_link: item.download_link || '',
+      embed_url: item.embed_url || '',
       is_free: item.is_free,
       speaker: item.speaker || '',
       class_date: item.class_date || '',
@@ -259,6 +262,40 @@ export default function AdminDashboard({ navigate }) {
       quota: item.quota || 0
     })
     setCrudError('')
+  }
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    const formDataUpload = new FormData()
+    formDataUpload.append('file', file)
+
+    try {
+      setCrudError('Mengunggah berkas...')
+      const res = await fetch(`${API_BASE_URL}/api/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('adminToken') || 'ft-admin-super-token-2026'}`
+        },
+        body: formDataUpload
+      })
+
+      if (!res.ok) {
+        throw new Error('Gagal mengunggah berkas ke server.')
+      }
+
+      const data = await res.json()
+      setFormData(prev => ({
+        ...prev,
+        download_link: `${API_BASE_URL}${data.fileUrl}`
+      }))
+      setCrudError('')
+      alert('Berkas berhasil diunggah dan disimpan!')
+    } catch (uploadErr) {
+      setCrudError(uploadErr.message || 'Error saat mengunggah berkas.')
+      alert('Error mengunggah berkas: ' + uploadErr.message)
+    }
   }
 
   const handleCrudSubmit = async (e) => {
@@ -1466,14 +1503,6 @@ export default function AdminDashboard({ navigate }) {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="image_url">Link URL Gambar Ilustrasi</label>
-                  <input 
-                    id="image_url" name="image_url" type="text" className="form-control"
-                    value={formData.image_url} onChange={handleInputChange} placeholder="https://images.unsplash.com/photo-..."
-                  />
-                </div>
-
-                <div className="form-group">
                   <label htmlFor="whatsapp_text">Teks Prefilled Pesan WhatsApp</label>
                   <textarea 
                     id="whatsapp_text" name="whatsapp_text" rows="2" className="form-textarea"
@@ -1520,13 +1549,29 @@ export default function AdminDashboard({ navigate }) {
                 )}
 
                 {formData.is_free && (
-                  <div className="form-group">
-                    <label htmlFor="download_link">Link Download File Resource (Untuk Produk Gratis)</label>
-                    <input 
-                      id="download_link" name="download_link" type="text" className="form-control"
-                      value={formData.download_link} onChange={handleInputChange} placeholder="https://drive.google.com/file/d/..."
-                    />
-                  </div>
+                  <>
+                    <div className="form-group">
+                      <label htmlFor="download_link">Link Download File Resource (Untuk Produk Gratis)</label>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <input 
+                          id="download_link" name="download_link" type="text" className="form-control"
+                          value={formData.download_link} onChange={handleInputChange} placeholder="https://drive.google.com/file/d/... atau pilih file"
+                          style={{ flex: 1 }}
+                        />
+                        <label className="button" style={{ margin: 0, padding: '8px 12px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', cursor: 'pointer', backgroundColor: 'var(--color-brand-green)', whiteSpace: 'nowrap', minHeight: 'auto', height: 'auto', borderRadius: '6px' }}>
+                          Unggah File
+                          <input type="file" onChange={handleFileUpload} style={{ display: 'none' }} />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="embed_url">Link Google Drive / Slides Embed (Untuk Baca Online Ebook)</label>
+                      <input 
+                        id="embed_url" name="embed_url" type="text" className="form-control"
+                        value={formData.embed_url || ''} onChange={handleInputChange} placeholder="https://docs.google.com/presentation/d/.../embed"
+                      />
+                    </div>
+                  </>
                 )}
 
                 {crudError && <div className="login-error" style={{ textAlign: 'left' }}>{crudError}</div>}

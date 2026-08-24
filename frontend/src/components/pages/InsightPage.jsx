@@ -7,7 +7,7 @@ const defaultArticles = [
     category: 'Parenting',
     author: 'Fasilitator Pengasuhan FT',
     date: '15 Aug 2026',
-    image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80',
+    image: '/1.jpg',
     summary: 'Pengasuhan yang sesungguhnya bukan mendikte anak, melainkan mengamati dan memfasilitasi dorongan fitrah yang sudah Tuhan titipkan.',
     content: 'Setiap anak dilahirkan membawa cetak biru potensinya sendiri. Tugas orangtua bukanlah membentuk mereka dari nol seperti tanah liat, melainkan menjaga dan menumbuhkan fitrah belajarnya. Dalam tulisan ini, kita menjelajahi pentingnya membiarkan anak memecahkan masalah kecil mereka sendiri secara konkret tanpa intervensi berlebihan. Melalui pembiasaan sederhana di rumah, anak akan tumbuh dengan rasa percaya diri, tanggung jawab, dan nalar kritis yang sehat.',
     ctaType: 'product' // links to #produk
@@ -18,7 +18,7 @@ const defaultArticles = [
     category: 'Pemuda',
     author: 'Coach Karir Pemuda',
     date: '10 Aug 2026',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80',
+    image: '/2.jpg',
     summary: 'Banyak pemuda terjebak kegalauan karir karena terbiasa memilih jurusan berdasarkan tren. Kenali potensi utama Anda sedini mungkin.',
     content: 'Masa muda adalah masa eksplorasi emas. Namun, sistem pendidikan seringkali menuntut pemuda memilih jurusan dan karir sebelum mereka memahami diri mereka sendiri. Dengan mengenali dorongan alami (spark) dan memetakan kekuatan pribadi lewat instrumen sederhana, pemuda dapat menyusun peta jalan belajar dan mulai berkarya secara produktif tanpa diselimuti kecemasan berlebih.',
     ctaType: 'product' // links to #produk
@@ -29,7 +29,7 @@ const defaultArticles = [
     category: 'Career',
     author: 'Konsultan Pengembangan Potensi',
     date: '02 Aug 2026',
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80',
+    image: '/3.jpg',
     summary: 'Karir bukan sekadar tangga kesuksesan finansial, melainkan sarana berkontribusi bagi masyarakat sesuai keunikan diri.',
     content: 'Merancang karir yang bermakna membutuhkan refleksi mendalam mengenai apa yang kita cintai, apa yang kita kuasai, dan apa yang dibutuhkan oleh sekeliling kita. Mengombinasikan model tujuan hidup (ikigai) dengan pemetaan potensi bakat dari Fitrah Tumbuh memberikan panduan strategis bagi para profesional untuk mengambil langkah transisi karir yang lebih berani dan selaras dengan panggilan jiwa.',
     ctaType: 'product' // links to #produk
@@ -40,7 +40,7 @@ const defaultArticles = [
     category: 'Education',
     author: 'Desainer Program Schole',
     date: '28 Jul 2026',
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80',
+    image: '/4.jpg',
     summary: 'Mengintegrasikan matematika, sains, dan bahasa ke dalam aktivitas berkebun dan petualangan fisik anak didik.',
     content: 'Belajar tidak harus dibatasi oleh dinding kelas. Kurikulum berbasis proyek di alam terbuka terbukti meningkatkan retensi belajar anak didik hingga tiga kali lipat. Melalui aktivitas menanam sayuran, mengukur luas petak tanah, dan menuliskan jurnal pertumbuhan berkala, siswa mempraktikkan teori sains, matematika, dan literasi sekaligus dalam pengalaman nyata.',
     ctaType: 'service' // links to #services
@@ -51,7 +51,7 @@ const defaultArticles = [
     category: 'Community',
     author: 'Fasilitator Pemberdayaan Warga',
     date: '19 Jul 2026',
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80',
+    image: '/8.JPG',
     summary: 'Bagaimana inisiatif kecil warga desa mampu merevitalisasi lahan tidur menjadi kebun belajar organik terpadu.',
     content: 'Pemberdayaan masyarakat yang berkelanjutan tidak dimulai dari bantuan materi luar, melainkan dari pemetaan aset lokal yang dimiliki warga (Asset-Based Community Development). Program inkubasi dan pendampingan desa wisata di Sumedang membuktikan bahwa sinergi pentahelix mampu menggerakkan ekonomi lokal secara mandiri dengan basis kearifan lokal yang kental.',
     ctaType: 'service' // links to #services
@@ -62,7 +62,7 @@ const defaultArticles = [
     category: 'Green Project',
     author: 'Inisiator Proyek Hijau FT',
     date: '05 Jul 2026',
-    image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=600&q=80',
+    image: '/10.JPG',
     summary: 'Program pengelolaan sampah terintegrasi yang mendidik anak sadar lingkungan secara nyata sejak dini.',
     content: 'Mengajarkan kelestarian bumi harus didukung dengan pembiasaan konkret. Sekolah nol sampah dirancang dengan mengeliminasi wadah plastik sekali pakai di kantin, melatih anak didik memilah sampah organik untuk dijadikan pupuk cair kebun sekolah, serta memanfaatkan limbah anorganik untuk proyek kriya kreatif yang bernilai estetika.',
     ctaType: 'service' // links to #services
@@ -205,7 +205,7 @@ export default function InsightPage({ navigate }) {
                       className="button button-small"
                       style={{ padding: '10px 24px' }}
                     >
-                      Lihat Produk Kami 📦
+                      Lihat Produk Kami ➔
                     </button>
                   </>
                 ) : (
@@ -221,7 +221,7 @@ export default function InsightPage({ navigate }) {
                       className="button button-small"
                       style={{ padding: '10px 24px' }}
                     >
-                      Konsultasikan dengan Fitrah Tumbuh 💼
+                      Konsultasikan dengan Fitrah Tumbuh ➔
                     </button>
                   </>
                 )}

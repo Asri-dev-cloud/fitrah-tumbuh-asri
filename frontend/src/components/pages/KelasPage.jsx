@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { trackFormSubmit, trackPurchaseClick } from '../../utils/analytics'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
-const WHATSAPP_ADMIN = '6285156916211'
+import { API_BASE_URL, WHATSAPP_ADMIN } from '../../utils/config'
 
 const FALLBACK_CLASSES = [
   {
@@ -10,7 +9,7 @@ const FALLBACK_CLASSES = [
     title: "Tumbuh Session - Career Alignment",
     description: "Mini class interaktif untuk menemukan keselarasan karir berdasarkan potensi fitrah bakat unik Anda.",
     price: "Rp 120.000",
-    image_url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80",
+    image_url: "/8.JPG",
     type: "digital_learning",
     target_audience: "Pekerja",
     whatsapp_text: "Halo Fitrah Tumbuh, saya ingin mendaftar Kelas Tumbuh Session - Career Alignment.",
@@ -25,7 +24,7 @@ const FALLBACK_CLASSES = [
     title: "Webinar Talent Discovery & Career Direction",
     description: "Webinar eksplorasi potensi diri untuk membidik arah karir masa depan bagi pemuda/mahasiswa.",
     price: "Rp 50.000",
-    image_url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80",
+    image_url: "/10.JPG",
     type: "digital_learning",
     target_audience: "Pemuda",
     whatsapp_text: "Halo Fitrah Tumbuh, saya ingin mendaftar Webinar Talent Discovery.",
@@ -201,49 +200,105 @@ export default function KelasPage() {
       ) : (
         <div className="catalog-grid">
           {filteredClasses.map(c => (
-            <article className="catalog-card" key={c.id}>
-              <div className="catalog-img-box">
-                <img src={c.image_url || 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80'} alt={c.title} />
-                <div className="catalog-badge-row">
-                  <span className="catalog-badge type-badge" style={{ backgroundColor: '#fdf6e2', color: '#cba819' }}>Digital Learning</span>
-                  <span className="catalog-badge audience-badge">{c.target_audience}</span>
+            <article className="catalog-card" key={c.id} style={{ position: 'relative', overflow: 'hidden' }}>
+              {/* Blurred card content */}
+              <div style={{ filter: 'blur(3.5px)', opacity: 0.6, pointerEvents: 'none', transition: 'all 0.3s ease' }}>
+                <div className="catalog-img-box">
+                  <img src={c.image_url || '/8.JPG'} alt={c.title} />
+                  <div className="catalog-badge-row">
+                    <span className="catalog-badge type-badge" style={{ backgroundColor: '#fdf6e2', color: '#cba819', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      Digital Learning
+                    </span>
+                    <span className="catalog-badge audience-badge">{c.target_audience}</span>
+                  </div>
+                </div>
+                <div className="catalog-info" style={{ paddingBottom: '76px' }}>
+                  <h3>{c.title}</h3>
+                  <p>{c.description}</p>
+                  
+                  <div className="class-meta-list">
+                    <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      <span className="class-meta-label">Mentor</span>
+                      <span>{c.speaker || 'Tim Ahli'}</span>
+                    </div>
+                    <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      <span className="class-meta-label">Jadwal</span>
+                      <span>{c.class_date || '-'} ({c.class_time || 'TBA'})</span>
+                    </div>
+                    {c.quota > 0 && (
+                      <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span className="class-meta-label">Kuota</span>
+                        <span>Maksimal {c.quota} Peserta</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="catalog-footer-row">
+                    <span className="price-tag">{c.price}</span>
+                  </div>
                 </div>
               </div>
-              <div className="catalog-info">
-                <h3>{c.title}</h3>
-                <p>{c.description}</p>
-                
-                <div className="class-meta-list">
-                  <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <span className="class-meta-label">Mentor</span>
-                    <span>{c.speaker || 'Tim Ahli'}</span>
-                  </div>
-                  <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    <span className="class-meta-label">Jadwal</span>
-                    <span>{c.class_date || '-'} ({c.class_time || 'TBA'})</span>
-                  </div>
-                  {c.quota > 0 && (
-                    <div className="class-meta-item" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                      <span className="class-meta-label">Kuota</span>
-                      <span>Maksimal {c.quota} Peserta</span>
-                    </div>
-                  )}
-                </div>
 
-                <div className="catalog-footer-row">
-                  <span className="price-tag">{c.price}</span>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <button onClick={() => handleDirectWAQuery(c)} className="secondary-button button-small">
-                      Tanya WA
-                    </button>
-                    <button onClick={() => handleOpenRegister(c)} className="button button-small">
-                      Daftar Kelas ↗
-                    </button>
-                  </div>
+              {/* Locked Professional Overlay in the Center */}
+              <div style={{
+                position: 'absolute',
+                top: '40%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '10px',
+                zIndex: 3,
+                pointerEvents: 'none'
+              }}>
+                <div style={{
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--color-brand-brown)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  boxShadow: '0 6px 20px rgba(92, 56, 16, 0.25)'
+                }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
+                <span style={{
+                  fontSize: '11px',
+                  fontWeight: '900',
+                  letterSpacing: '1px',
+                  color: '#ffffff',
+                  backgroundColor: 'var(--color-brand-brown)',
+                  padding: '5px 12px',
+                  borderRadius: '20px',
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+                }}>
+                  SEGERA HADIR
+                </span>
+              </div>
+
+              {/* Active clickable WhatsApp Button at the bottom */}
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                zIndex: 5
+              }}>
+                <button 
+                  onClick={() => handleDirectWAQuery(c)} 
+                  className="button button-small" 
+                  style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', backgroundColor: 'var(--color-brand-brown)' }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  Tanya Kelas via WA
+                </button>
               </div>
             </article>
           ))}
@@ -269,7 +324,10 @@ export default function KelasPage() {
                   </div>
                   <h3>Pendaftaran Tersimpan!</h3>
                   <div style={{ textAlign: 'left', background: 'var(--color-brand-cream, #fbf9f4)', border: '1px solid rgba(92, 56, 16, 0.1)', borderRadius: '12px', padding: '16px', margin: '12px 0', width: '100%' }}>
-                    <h4 style={{ color: 'var(--color-brand-brown)', fontSize: '14px', fontWeight: 800, marginBottom: '8px' }}>💳 Instruksi Pembayaran (Transfer Bank)</h4>
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-brand-brown)', fontSize: '14px', fontWeight: 800, marginBottom: '8px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                      Instruksi Pembayaran (Transfer Bank)
+                    </h4>
                     <p style={{ fontSize: '13px', color: 'var(--color-brand-dark)', lineHeight: 1.5, marginBottom: '6px' }}>
                       Silakan lakukan transfer investasi belajar sebesar <strong>{selectedClass.price}</strong> ke rekening kami:
                     </p>
@@ -282,8 +340,9 @@ export default function KelasPage() {
                     </p>
                   </div>
                   <div className="success-actions-vertical">
-                    <a href={regSuccess} target="_blank" rel="noreferrer" className="button">
-                      💬 Konfirmasi via WhatsApp ↗
+                    <a href={regSuccess} target="_blank" rel="noreferrer" className="button" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                      Konfirmasi via WhatsApp ↗
                     </a>
                     <button onClick={() => setSelectedClass(null)} className="secondary-button">Tutup</button>
                   </div>

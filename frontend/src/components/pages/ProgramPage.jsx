@@ -1,33 +1,35 @@
 
+import { WHATSAPP_ADMIN } from '../../utils/config'
+
 const programs = [
   {
     title: 'Calistung & Literasi',
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80',
+    image: '/calistung.png',
     text: 'Kegiatan belajar membaca, menulis, dan berhitung yang dikemas secara menyenangkan agar anak tumbuh percaya diri.'
   },
   {
     title: 'Belajar Bersama Alam',
-    image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=80',
+    image: '/Eksplorasi.png',
     text: 'Pembelajaran yang memanfaatkan lingkungan nyata, mulai dari pertanian, ekosistem, hingga observasi alam sehari-hari.'
   },
   {
     title: 'Healing Farm',
-    image: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80',
+    image: '/13.jpg',
     text: 'Ruang pemulihan dan refleksi melalui kegiatan bertani, kebersamaan, dan keterhubungan yang harmonis dengan alam sekitar.'
   },
   {
     title: 'Hiking & Family Camp',
-    image: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=600&q=80',
+    image: '/Hiking.png',
     text: 'Kegiatan luar ruangan untuk memperkuat ikatan keluarga, melatih fisik tangguh, dan membangun kebiasaan sehat bersama.'
   },
   {
     title: 'Magang Pemuda',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
+    image: '/Magang.png',
     text: 'Pelatihan berbasis pengalaman kerja nyata untuk menumbuhkan keterampilan profesional, kedisiplinan, dan jiwa mandiri pemuda.'
   },
   {
     title: 'Inkubasi UMKM',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80',
+    image: '/UMKM.png',
     text: 'Pendampingan usaha bagi pelaku usaha mikro lokal agar bertumbuh dengan strategi pemasaran yang relevan, sehat, dan berkelanjutan.'
   }
 ]
@@ -53,17 +55,17 @@ const highlights = [
 const materials = [
   {
     title: 'Artikel & Refleksi',
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=400&q=80',
+    image: '/17.jpg',
     text: 'Tema-tema praktis tentang pola asuh, pendidikan karakter, dan cara menumbuhkan potensi secara manusiawi.'
   },
   {
     title: 'E-book & Modul Belajar',
-    image: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=400&q=80',
+    image: '/18.jpg',
     text: 'Bahan ajar terstruktur yang bisa digunakan secara praktis oleh keluarga, pendidik, maupun komunitas belajar.'
   },
   {
     title: 'Video & Workshop Media',
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80',
+    image: '/19.jpg',
     text: 'Dokumentasi praktik, tutorial visual, dan rekaman workshop interaktif agar pesan mudah diserap dan diterapkan.'
   }
 ]
@@ -547,7 +549,7 @@ export default function ProgramPage() {
         <div className="program-hero-graphic">
           <div className="program-hero-image-wrapper">
             <img 
-              src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=85" 
+              src="/8.JPG" 
               alt="Program Belajar Bermakna" 
             />
           </div>
@@ -575,7 +577,7 @@ export default function ProgramPage() {
                 <p>{prog.text}</p>
                 <a 
                   className="button button-small"
-                  href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mendaftar%20atau%20tanya%20lebih%20lanjut%20tentang%20program%20"
+                  href={`https://wa.me/${WHATSAPP_ADMIN}?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mendaftar%20atau%20tanya%20lebih%20lanjut%20tentang%20program%20${encodeURIComponent(prog.title)}`}
                   target="_blank" 
                   rel="noreferrer"
                 >
@@ -624,7 +626,7 @@ export default function ProgramPage() {
                 </div>
                 <a 
                   className="story-link" 
-                  href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20mendapatkan%20materi%20"
+                  href={`https://wa.me/${WHATSAPP_ADMIN}?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20mendapatkan%20materi%20${encodeURIComponent(mat.title)}`}
                   target="_blank" 
                   rel="noreferrer"
                 >

@@ -1,4 +1,6 @@
 
+import { WHATSAPP_ADMIN } from '../../utils/config'
+
 const SchoolIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
 )
@@ -443,7 +445,7 @@ export default function CollaborationPage({ navigate }) {
         </div>
         <div className="collab-hero-graphic">
           <div className="collab-hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=85" alt="Kolaborasi Komunitas" />
+            <img src="/8.JPG" alt="Kolaborasi Komunitas" />
           </div>
           <div className="collab-hero-badge">Pentahelix</div>
         </div>
@@ -484,7 +486,7 @@ export default function CollaborationPage({ navigate }) {
                 <h3>{project.title}</h3>
                 <p>{project.text}</p>
                 <a 
-                  href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20mengenai%20inisiatif%20" 
+                  href={`https://wa.me/${WHATSAPP_ADMIN}?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20mengenai%20inisiatif%20${encodeURIComponent(project.title)}`}
                   className="collab-project-link"
                   target="_blank"
                   rel="noreferrer"

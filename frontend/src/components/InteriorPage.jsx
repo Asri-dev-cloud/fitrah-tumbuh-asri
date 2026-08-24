@@ -1,3 +1,4 @@
+import { WHATSAPP_ADMIN } from '../utils/config'
 import AboutPage from './pages/AboutPage'
 import ProgramPage from './pages/ProgramPage'
 import PortfolioPage from './pages/PortfolioPage'
@@ -10,10 +11,10 @@ import FreePage from './pages/FreePage'
 import InsightPage from './pages/InsightPage'
 
 const photos = {
-  about: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1400&q=85',
-  program: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=85',
-  nature: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&w=1400&q=85',
-  people: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85'
+  about: '/8.JPG',
+  program: '/8.JPG',
+  nature: '/8.JPG',
+  people: '/8.JPG'
 }
 
 const staticData = {
@@ -145,7 +146,7 @@ export default function InteriorPage({ page, navigate }) {
             <p>{p.desc}</p>
             <a
               className="button"
-              href="https://wa.me/6285156916211?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh."
+              href={`https://wa.me/${WHATSAPP_ADMIN}?text=Halo%20Fitrah%20Tumbuh%2C%20saya%20tertarik%20untuk%20mengetahui%20lebih%20lanjut%20mengenai%20program%20belajar%20dan%20kegiatan%20di%20Fitrah%20Tumbuh.`}
               target="_blank"
               rel="noreferrer"
             >

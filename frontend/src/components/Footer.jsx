@@ -169,8 +169,9 @@ export default function Footer({ navigate }) {
           <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
             Bandung Raya, Jawa Barat.
           </p>
-          <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.7)' }}>
-            ✉ info@fitrahtumbuh.id
+          <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-yellow)' }}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            info@fitrahtumbuh.id
           </p>
         </div>
       </div>
@@ -179,8 +180,9 @@ export default function Footer({ navigate }) {
 
       <div className="footer-bottom-ft">
         <span>© 2026 Fitrah Tumbuh. Bertumbuh dalam fitrah, bergerak untuk sesama.</span>
-        <a href="#admin" onClick={(e) => go(e, 'admin')} className="admin-link-ft">
-          🔑 Admin Panel
+        <a href="#admin" onClick={(e) => go(e, 'admin')} className="admin-link-ft" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.7 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Admin Panel
         </a>
       </div>
     </footer>

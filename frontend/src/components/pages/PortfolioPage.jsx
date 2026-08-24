@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
+import { API_BASE_URL } from '../../utils/config'
 
 const defaultPortfolioItems = [
   {
     title: 'Literasi Anak Marginal (Calistung Ceria)',
-    image: '/calistung.png',
+    image: '/11.jpg',
     masalah: 'Rendahnya minat baca dan kemampuan dasar membaca, menulis, berhitung (calistung) pada anak-anak prasejahtera di bantaran sungai Kabupaten Sumedang.',
     solusi: 'Penerapan metode belajar sambil bermain peran, penggunaan flashcards interaktif, dan sesi mendongeng kreatif berbasis alam terbuka.',
     target: '45 Anak marginal usia prasekolah dan kelas awal sekolah dasar.',
@@ -15,7 +15,7 @@ const defaultPortfolioItems = [
   },
   {
     title: 'Restorasi Mental Pemuda (Healing Farm)',
-    image: '/Healing Farm.png',
+    image: '/13.jpg',
     masalah: 'Meningkatnya tingkat stres, kecemasan, dan hilangnya orientasi hidup pada pemuda pengangguran akibat disrupsi karir pasca-pandemi.',
     solusi: 'Mengintegrasikan hortikultura (berkebun sayur organik) sebagai sarana terapi psikologis, meditasi alam bebas, dan konseling kelompok sebaya.',
     target: '30 Pemuda usia produktif (18-25 tahun) di wilayah urban-rural.',
@@ -25,7 +25,7 @@ const defaultPortfolioItems = [
   },
   {
     title: 'Ekspedisi Karakter (Hiking Keluarga)',
-    image: '/Hiking.png',
+    image: '/4.jpg',
     masalah: 'Renggangnya komunikasi interpersonal di dalam keluarga dan tingginya kecenderungan kecanduan gawai (gadget addiction) pada anak-anak perkotaan.',
     solusi: 'Menyelenggarakan perjalanan lintas alam terstruktur tanpa membawa gawai untuk melatih kekompakan, kerja sama tim, dan kepemimpinan keluarga.',
     target: '20 Keluarga urban dengan anak usia sekolah dasar (7-12 tahun).',
@@ -35,7 +35,7 @@ const defaultPortfolioItems = [
   },
   {
     title: 'Outing Kebun Belajar Terpadu',
-    image: '/Eksplorasi.png',
+    image: '/12.jpg',
     masalah: 'Kurangnya pemahaman anak-anak sekolah perkotaan tentang asal usul makanan yang dikonsumsi dan pentingnya pelestarian ekosistem hayati.',
     solusi: 'Kunjungan lapangan interaktif (outing) sehari di kebun belajar terintegrasi pertanian dan peternakan ramah lingkungan.',
     target: '150 Siswa SD IT Tumbuh.',
@@ -45,20 +45,20 @@ const defaultPortfolioItems = [
   },
   {
     title: 'Inkubasi Bisnis Mikro (UMKM Berdaya)',
-    image: '/UMKM.png',
+    image: '/16.jpg',
     masalah: 'Kendala pelaku usaha kecil pedesaan dalam menembus pasar ritel modern perkotaan karena buruknya desain kemasan dan keterbatasan pemasaran digital.',
     solusi: 'Lokakarya komparatif desain kemasan, perbaikan kualitas produk, pembekalan branding, dan fasilitasi pendaftaran Google Bisnisku.',
-    target: '15 Pengrajin keripik rumahan dan anyaman bambu di pedesaan Sumedang.',
+    target: '16 Pengrajin keripik rumahan dan anyaman bambu di pedesaan Sumedang.',
     aktivitas: 'Sesi kurasi produk, praktik foto katalog produk dengan smartphone, pembuatan kemasan ramah lingkungan, dan pemasangan kode pembayaran QRIS.',
     impact: 'Kenaikan omzet bulanan mitra rata-rata mencapai 35%, produk keripik berhasil masuk ke 3 gerai toko oleh-oleh utama.',
     partner: 'Dinas Koperasi & UMKM Jawa Barat'
   },
   {
     title: 'Program Magang Karya Pemuda',
-    image: '/Magang.png',
+    image: '/14.jpg',
     masalah: 'Kesenjangan keterampilan manajerial yang dialami lulusan SMK baru dalam menghadapi persaingan dunia kerja profesional.',
     solusi: 'Menyelenggarakan program magang terstruktur berbasis proyek riil sosial (project-based learning) dengan memanage agenda kepemudaan.',
-    target: '12 Pemuda lulusan SMK/Diploma pencari kerja pertama.',
+    target: '14 Pemuda lulusan SMK/Diploma pencari kerja pertama.',
     aktivitas: 'Merancang proposal program sosial kemasyarakatan, menyusun anggaran operasional kegiatan, dan negosiasi penawaran sponsorship dengan dunia usaha.',
     impact: '100% peserta magang berhasil terserap bekerja di industri kreatif dan yayasan sosial mitra dalam waktu kurang dari 3 bulan.',
     partner: 'Yayasan Bakti Pemuda Bandung'
@@ -93,6 +93,29 @@ const steps = [
   }
 ]
 
+const getMatch = (apiTitle) => {
+  const titleLower = apiTitle.toLowerCase();
+  if (titleLower.includes('literasi') || titleLower.includes('calistung') || titleLower.includes('ruang tumbuh')) {
+    return defaultPortfolioItems[0];
+  }
+  if (titleLower.includes('healing') || titleLower.includes('restorasi')) {
+    return defaultPortfolioItems[1];
+  }
+  if (titleLower.includes('hiking') || titleLower.includes('kemah')) {
+    return defaultPortfolioItems[2];
+  }
+  if (titleLower.includes('kebun') || titleLower.includes('outing')) {
+    return defaultPortfolioItems[3];
+  }
+  if (titleLower.includes('umkm') || titleLower.includes('inkubasi')) {
+    return defaultPortfolioItems[4];
+  }
+  if (titleLower.includes('magang')) {
+    return defaultPortfolioItems[5];
+  }
+  return null;
+}
+
 export default function PortfolioPage({ navigate }) {
   const [portfolioItems, setPortfolioItems] = useState(defaultPortfolioItems)
   const [selectedProject, setSelectedProject] = useState(null)
@@ -107,10 +130,14 @@ export default function PortfolioPage({ navigate }) {
         if (Array.isArray(data) && data.length > 0) {
           // Merge API data titles to default items or append
           const mapped = data.map((item) => {
-            const match = defaultPortfolioItems.find(def => def.title.toLowerCase().includes(item.title.toLowerCase()))
+            const match = getMatch(item.title);
+            let imagePath = item.image || item.image_url || '/Eksplorasi.png';
+            if (match) {
+              imagePath = match.image;
+            }
             return {
               title: item.title,
-              image: item.image || item.image_url || '/Eksplorasi.png',
+              image: imagePath,
               masalah: match?.masalah || 'Masalah tidak terdokumentasi secara tertulis.',
               solusi: match?.solusi || item.text || item.description || 'Solusi dilakukan melalui pendampingan komprehensif.',
               target: match?.target || 'Komunitas anak dan keluarga.',
@@ -561,7 +588,7 @@ export default function PortfolioPage({ navigate }) {
         </div>
         <div className="portfolio-hero-graphic">
           <div className="portfolio-hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=85" alt="Anak-anak belajar bersama alam" />
+            <img src="/8.JPG" alt="Anak-anak belajar bersama alam" />
           </div>
           <div className="portfolio-hero-badge">Dampak Konkret</div>
         </div>
@@ -570,7 +597,7 @@ export default function PortfolioPage({ navigate }) {
       {/* 2. Intro Stats Grid */}
       <section className="portfolio-stats-section">
         <div className="portfolio-stats-intro">
-          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=300&q=80" alt="Sekolah Alam" />
+          <img src="/2.jpg" alt="Sekolah Alam" />
           <div>
             <h3>Ruang Belajar Mandiri</h3>
             <p>Membantu menemukan fitrah sejati anak di ruang belajar yang membumi.</p>
@@ -698,8 +725,9 @@ export default function PortfolioPage({ navigate }) {
 
                 {selectedProject.target && (
                   <div>
-                    <h4 style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                      🎯 Target Penerima Manfaat
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                      Target Penerima Manfaat
                     </h4>
                     <p style={{ fontSize: '13.5px', color: 'var(--color-brand-dark)', lineHeight: 1.55 }}>
                       {selectedProject.target}
@@ -709,8 +737,9 @@ export default function PortfolioPage({ navigate }) {
 
                 {selectedProject.aktivitas && (
                   <div>
-                    <h4 style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                      🏃 Aktivitas Proyek
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M2 17 12 22 22 17"/><path d="M2 12 12 17 22 12"/><path d="m12 2 10 5-10 5L2 7Z"/></svg>
+                      Aktivitas Proyek
                     </h4>
                     <p style={{ fontSize: '13.5px', color: 'var(--color-brand-dark)', lineHeight: 1.55 }}>
                       {selectedProject.aktivitas}
@@ -720,8 +749,9 @@ export default function PortfolioPage({ navigate }) {
 
                 {selectedProject.impact && (
                   <div>
-                    <h4 style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                      📈 Dampak (Impact)
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="m3 16 4-4 4 4 6-6M21 8h-4v4"/></svg>
+                      Dampak (Impact)
                     </h4>
                     <p style={{ fontSize: '13.5px', color: 'var(--color-brand-dark)', lineHeight: 1.55 }}>
                       {selectedProject.impact}
@@ -731,8 +761,9 @@ export default function PortfolioPage({ navigate }) {
 
                 {selectedProject.partner && (
                   <div>
-                    <h4 style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                      🤝 Partner Kolaborasi
+                    <h4 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: 'var(--color-brand-brown)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-green)' }}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      Partner Kolaborasi
                     </h4>
                     <p style={{ fontSize: '13.5px', color: 'var(--color-brand-dark)', lineHeight: 1.55 }}>
                       {selectedProject.partner}

@@ -1,39 +1,38 @@
 import { useState } from 'react'
 import { trackFormSubmit } from '../../utils/analytics'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000'
-const WHATSAPP_ADMIN = '6285156916211'
+import { API_BASE_URL, WHATSAPP_ADMIN } from '../../utils/config'
 
 const SERVICE_CATEGORIES = [
   {
     id: 'program_design',
     title: "1. Program Design",
     description: "Membantu sekolah, komunitas, atau organisasi merancang program belajar/pemberdayaan berbasis alam, kepemudaan, dan potensi fitrah secara komprehensif.",
-    icon: "🎨"
+    icon: ""
   },
   {
     id: 'project_dev',
     title: "2. Project Development",
     description: "Mengubah ide dan inisiatif awal menjadi rancangan proyek nyata yang matang, logis, terukur, dan siap diimplementasikan di lapangan.",
-    icon: "🚀"
+    icon: ""
   },
   {
     id: 'proposal_pitch',
     title: "3. Proposal & Pitch Deck",
     description: "Membantu menyusun dokumen proposal kemitraan terstruktur serta slide presentasi (pitch deck) yang memikat sponsor atau lembaga pendana.",
-    icon: "📄"
+    icon: ""
   },
   {
     id: 'training_workshop',
     title: "4. Training & Workshop",
     description: "Penyelenggaraan pelatihan, seminar, dan lokakarya interaktif bagi pendidik, pengurus organisasi, komunitas, maupun pelaku UMKM.",
-    icon: "👥"
+    icon: ""
   },
   {
     id: 'mentoring',
     title: "5. Mentoring & Pendampingan",
     description: "Pendampingan personal atau kelompok secara berkala bagi pemuda, inisiator sosial, dan organisasi dalam mengawal jalannya proyek/karir.",
-    icon: "⭐"
+    icon: ""
   }
 ]
 
@@ -264,8 +263,9 @@ export default function ServicesPage() {
                     Formulir konsultasi Anda telah tersimpan di database kami. Silakan klik tombol di bawah untuk langsung terhubung dengan admin kami via WhatsApp guna menjadwalkan sesi diskusi lanjutan.
                   </p>
                   <div className="success-actions-vertical">
-                    <a href={consultSuccess} target="_blank" rel="noreferrer" className="button">
-                      💬 Mulai Diskusi WhatsApp ↗
+                    <a href={consultSuccess} target="_blank" rel="noreferrer" className="button" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                      Mulai Diskusi WhatsApp ↗
                     </a>
                     <button onClick={() => setSelectedService(null)} className="secondary-button">Tutup</button>
                   </div>

@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const mobileItems = [
-  ['beranda', '⌂', 'Home'],
-  ['produk', '📦', 'Produk'],
-  ['kelas', '🎓', 'Kelas'],
-  ['talent-mapping', '🎯', 'Talent'],
-  ['services', '💼', 'Services']
+  ['beranda', '', 'Home'],
+  ['produk', '', 'Produk'],
+  ['kelas', '', 'Kelas'],
+  ['talent-mapping', '', 'Talent'],
+  ['services', '', 'Services']
 ]
 
 export default function Header({ page, navigate, menuOpen, setMenuOpen }) {
