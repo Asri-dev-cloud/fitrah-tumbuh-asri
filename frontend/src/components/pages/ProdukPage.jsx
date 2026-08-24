@@ -274,7 +274,7 @@ export default function ProdukPage() {
                    )}
                   <div className="success-actions-vertical">
                     {orderSuccess.downloadLink && (
-                      <a href={orderSuccess.downloadLink} target="_blank" rel="noreferrer" className="button" style={{ backgroundColor: '#738a43' }}>
+                      <a href={orderSuccess.downloadLink} target="_blank" rel="noreferrer" className="button" style={{ backgroundColor: 'var(--color-brand-green)' }}>
                         📂 Buka / Download PDF
                       </a>
                     )}

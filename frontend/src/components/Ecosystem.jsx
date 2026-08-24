@@ -82,7 +82,7 @@ export default function Ecosystem() {
     {
       label: "Literasi Karakter",
       title: "Anak bertumbuh merdeka & penuh rasa ingin tahu.",
-      accent: "#dca11d",
+      accent: "var(--color-brand-yellow)",
       image: "/Literasi Karakter.png",
       y: 0,
       tilt: 0,
@@ -91,7 +91,7 @@ export default function Ecosystem() {
     {
       label: "Penyelamatan Bumi",
       title: "Menghidupkan tanah & merawat kelestarian alam.",
-      accent: "#738a43",
+      accent: "var(--color-brand-green)",
       image: "/Penyelamatan Bumi.png",
       y: 10,
       tilt: -2,
@@ -109,7 +109,7 @@ export default function Ecosystem() {
     {
       label: "Jiwa Petualang",
       title: "Menempa fisik tangguh & kepemimpinan kokoh.",
-      accent: "#738a43",
+      accent: "var(--color-brand-green)",
       image: "/Jiwa Petualang.png",
       y: 5,
       tilt: -1,
@@ -118,7 +118,7 @@ export default function Ecosystem() {
     {
       label: "Kemandirian Warga",
       title: "Usaha komunitas menopang ekonomi keluarga.",
-      accent: "#dca11d",
+      accent: "var(--color-brand-yellow)",
       image: "/Kemandirian Warga.png",
       y: -5,
       tilt: 1,
@@ -127,7 +127,7 @@ export default function Ecosystem() {
     {
       label: "Kader Pemuda",
       title: "Magang kerja melahirkan penggerak sosial baru.",
-      accent: "#cba819",
+      accent: "var(--color-brand-gold)",
       image: "/Kader Pemuda.png",
       y: 15,
       tilt: -3,
@@ -145,7 +145,7 @@ export default function Ecosystem() {
     {
       label: "Guyub Komunitas",
       title: "Gotong royong warga membangun desa berdaulat.",
-      accent: "#738a43",
+      accent: "var(--color-brand-green)",
       image: "/Gotong royong warga.png",
       y: 0,
       tilt: 0,
@@ -181,7 +181,7 @@ export default function Ecosystem() {
     radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%);
   background-position: 0 0, 42px 42px;
   background-size: 84px 84px;
-  color: #dca11d;
+  color: var(--color-brand-yellow);
   transform: rotate(-7deg) scale(1.12);
 }
 .craftly-batik-fade {
@@ -193,7 +193,7 @@ export default function Ecosystem() {
     radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 25%, transparent 26% 44%, currentColor 45% 46%, transparent 47%);
   background-position: 0 0, 54px 54px;
   background-size: 108px 108px;
-  color: #738a43;
+  color: var(--color-brand-green);
 }
 .craftly-carousel-orbit {
   will-change: transform;

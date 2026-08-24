@@ -126,8 +126,8 @@ export default function FreePage() {
           line-height: 1.6;
         }
         .free-badge-label {
-          background-color: #eef3e2;
-          color: #738a43;
+          background-color: var(--color-brand-soft-green);
+          color: var(--color-brand-green);
           font-weight: 800;
           font-size: 11px;
           padding: 4px 10px;
@@ -204,7 +204,7 @@ export default function FreePage() {
             <div className="modal-body">
               {successLink ? (
                 <div className="modal-success-box">
-                  <div className="success-circle" style={{ backgroundColor: '#738a43' }}>
+                  <div className="success-circle" style={{ backgroundColor: 'var(--color-brand-green)' }}>
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </div>
                   <h3>Resource Siap Diunduh!</h3>
@@ -212,7 +212,7 @@ export default function FreePage() {
                     Data Anda berhasil disimpan. Silakan klik tombol di bawah untuk langsung membuka / mengunduh file PDF panduan.
                   </p>
                   <div className="success-actions-vertical">
-                    <a href={successLink} target="_blank" rel="noreferrer" className="button" style={{ backgroundColor: '#738a43' }}>
+                    <a href={successLink} target="_blank" rel="noreferrer" className="button" style={{ backgroundColor: 'var(--color-brand-green)' }}>
                       📂 Unduh File PDF Sekarang ↗
                     </a>
                     <button onClick={() => setSelectedResource(null)} className="secondary-button">

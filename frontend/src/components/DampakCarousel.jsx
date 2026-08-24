@@ -4,7 +4,7 @@ const productFrames = [
   {
     label: "Literasi Karakter",
     title: "Anak bertumbuh merdeka & penuh rasa ingin tahu.",
-    accent: "#dca11d",
+    accent: "var(--color-brand-yellow)",
     image: "/Literasi Karakter.png",
     y: 0,
     tilt: 0,
@@ -13,7 +13,7 @@ const productFrames = [
   {
     label: "Penyelamatan Bumi",
     title: "Menghidupkan tanah & merawat kelestarian alam.",
-    accent: "#738a43",
+    accent: "var(--color-brand-green)",
     image: "/Penyelamatan Bumi.png",
     y: 10,
     tilt: -2,
@@ -31,7 +31,7 @@ const productFrames = [
   {
     label: "Jiwa Petualang",
     title: "Menempa fisik tangguh & kepemimpinan kokoh.",
-    accent: "#738a43",
+    accent: "var(--color-brand-green)",
     image: "/Jiwa Petualang.png",
     y: 5,
     tilt: -1,
@@ -40,7 +40,7 @@ const productFrames = [
   {
     label: "Kemandirian Warga",
     title: "Usaha komunitas menopang ekonomi keluarga.",
-    accent: "#dca11d",
+    accent: "var(--color-brand-yellow)",
     image: "/Kemandirian Warga.png",
     y: -5,
     tilt: 1,
@@ -49,7 +49,7 @@ const productFrames = [
   {
     label: "Kader Pemuda",
     title: "Magang kerja melahirkan penggerak sosial baru.",
-    accent: "#cba819",
+    accent: "var(--color-brand-gold)",
     image: "/Kader Pemuda.png",
     y: 15,
     tilt: -3,
@@ -67,7 +67,7 @@ const productFrames = [
   {
     label: "Guyub Komunitas",
     title: "Gotong royong warga membangun desa berdaulat.",
-    accent: "#738a43",
+    accent: "var(--color-brand-green)",
     image: "/Gotong royong warga.png",
     y: 0,
     tilt: 0,
@@ -124,7 +124,7 @@ export default function DampakCarousel() {
             radial-gradient(ellipse at center, transparent 0 23%, currentColor 24% 26%, transparent 27% 44%, currentColor 45% 47%, transparent 48%);
           background-position: 0 0, 42px 42px;
           background-size: 84px 84px;
-          color: #dca11d;
+          color: var(--color-brand-yellow);
           transform: rotate(-7deg) scale(1.12);
         }
         .craftly-batik-fade {
@@ -172,14 +172,14 @@ export default function DampakCarousel() {
             <path d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1200,80 1200,80 L1200,120 L0,120 Z" fill="#fbf9f4" stroke="#fbf9f4" strokeWidth="1.5"></path>
           </svg>
         </div>
-        <div className="pointer-events-none absolute left-1/2 top-[34%] h-[680px] w-[900px] -translate-x-1/2 rounded-full bg-[#738a43]/10 blur-[160px] z-0" />
+        <div className="pointer-events-none absolute left-1/2 top-[34%] h-[680px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-brand-green)]/10 blur-[160px] z-0" />
         <div className="craftly-batik pointer-events-none absolute inset-y-0 right-0 w-[82%] opacity-[.06] z-0" />
         <div className="craftly-batik-fade pointer-events-none absolute inset-0 z-0" />
         <div className="relative z-10 grid grid-cols-1 gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:items-center px-6 sm:px-8 max-w-[1280px] mx-auto">
           <div className="relative z-10 order-2 max-w-3xl text-center lg:order-1 lg:text-left">
             <h1 className="mx-auto max-w-3xl text-[clamp(2.25rem,10vw,3.4rem)] font-black leading-[0.95] tracking-[-.055em] text-[#faf0d7] lg:mx-0 lg:text-[clamp(3.5rem,6vw,5.5rem)] lg:leading-[0.92] lg:tracking-[-.065em]">
-              <span className="text-[#8fa360]">Dampak yang</span>
-              <span className="block text-[#dca11d]">Berputar.</span>
+              <span className="text-[var(--color-brand-green)]">Dampak yang</span>
+              <span className="block text-[var(--color-brand-yellow)]">Berputar.</span>
             </h1>
             <p className="mx-auto mt-7 max-w-xl text-base font-medium leading-relaxed text-white/80 sm:text-lg lg:mx-0 lg:mt-8 lg:text-xl text-justify">
               Seluruh inisiatif kami bergerak dalam siklus melingkar yang saling menghidupi. Pembelajaran melahirkan kepedulian lingkungan, petualangan membentuk ketangguhan jiwa, dan kemandirian ekonomi keluarga diputar kembali untuk menyokong pendidikan generasi berikutnya.
@@ -234,7 +234,7 @@ export default function DampakCarousel() {
                         <span className="font-mono text-[6px] font-bold uppercase tracking-[.12em] text-[#faf0d7]/85 drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] md:text-[8px]">
                           {label}
                         </span>
-                        <span className="mt-0.5 text-[9px] font-extrabold leading-tight text-[#dca11d] drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)] md:mt-1 md:text-[12px]">
+                        <span className="mt-0.5 text-[9px] font-extrabold leading-tight text-[var(--color-brand-yellow)] drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)] md:mt-1 md:text-[12px]">
                           {title}
                         </span>
                       </div>

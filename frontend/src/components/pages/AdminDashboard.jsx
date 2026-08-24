@@ -662,7 +662,7 @@ export default function AdminDashboard({ navigate }) {
           text-transform: uppercase;
         }
 
-        .badge-type.digital_product { background: #eef3e2; color: #738a43; }
+        .badge-type.digital_product { background: var(--color-brand-soft-green); color: var(--color-brand-green); }
         .badge-type.digital_learning { background: #fdf6e2; color: #cba819; }
         .badge-type.project_service { background: #fbf0e3; color: #5c3810; }
 
@@ -1190,7 +1190,7 @@ export default function AdminDashboard({ navigate }) {
                           <strong style={{ fontSize: '13px' }}>{ord.interest || ord.product_title}</strong>
                           <p style={{ fontSize: '11px', color: 'var(--color-brand-muted)', marginTop: '2px' }}>ID: #{ord.product_id || '-'}</p>
                           {ord.execution_time && (
-                            <p style={{ fontSize: '11px', color: '#738a43', marginTop: '2px' }}>
+                            <p style={{ fontSize: '11px', color: 'var(--color-brand-green)', marginTop: '2px' }}>
                               Waktu: {ord.execution_time}
                             </p>
                           )}
@@ -1200,8 +1200,8 @@ export default function AdminDashboard({ navigate }) {
                         </td>
                         <td>
                           <span style={{ 
-                            background: (ord.status || 'Lead') === 'Customer' ? '#eef3e2' : (ord.status || 'Lead') === 'Alumni' ? '#fdf6e2' : '#f4f2f0', 
-                            color: (ord.status || 'Lead') === 'Customer' ? '#738a43' : (ord.status || 'Lead') === 'Alumni' ? '#cba819' : 'var(--color-brand-muted)',
+                            background: (ord.status || 'Lead') === 'Customer' ? 'var(--color-brand-soft-green)' : (ord.status || 'Lead') === 'Alumni' ? 'var(--color-brand-soft-yellow)' : '#f4f2f0', 
+                            color: (ord.status || 'Lead') === 'Customer' ? 'var(--color-brand-green)' : (ord.status || 'Lead') === 'Alumni' ? 'var(--color-brand-gold)' : 'var(--color-brand-muted)',
                             padding: '4px 10px', 
                             borderRadius: '99px', 
                             fontSize: '11.5px', 
