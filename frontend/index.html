@@ -7,36 +7,55 @@
     <title>Fitrah Tumbuh Asri</title>
 
     <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="google-search-console-verification-placeholder" />
+    <meta name="google-site-verification" content="%VITE_SEARCH_CONSOLE_ID%" />
 
     <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZJNZQLR7E"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HZJNZQLR7E');
+      (function() {
+        const gaId = "%VITE_GA_ID%";
+        if (gaId && gaId !== "%VITE_GA_ID%" && !gaId.startsWith("%") && gaId.trim() !== "") {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        }
+      })();
     </script>
 
     <!-- Meta Pixel Code -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '123456789012345');
-      fbq('track', 'PageView');
+      (function() {
+        const pixelId = "%VITE_META_PIXEL_ID%";
+        if (pixelId && pixelId !== "%VITE_META_PIXEL_ID%" && !pixelId.startsWith("%") && pixelId.trim() !== "") {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', pixelId);
+          fbq('track', 'PageView');
+
+          const noscript = document.createElement('noscript');
+          const img = document.createElement('img');
+          img.height = 1;
+          img.width = 1;
+          img.style.display = 'none';
+          img.src = 'https://www.facebook.com/tr?id=' + pixelId + '&ev=PageView&noscript=1';
+          noscript.appendChild(img);
+          document.body.appendChild(noscript);
+        }
+      })();
     </script>
   </head>
   <body>
-    <noscript>
-      <img height="1" width="1" style="display:none" 
-           src="https://www.facebook.com/tr?id=123456789012345&ev=PageView&noscript=1"/>
-    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

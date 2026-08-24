@@ -105,19 +105,96 @@ export default function AdminDashboard({ navigate }) {
 
   const exportToCSV = (data, filename = 'export.csv') => {
     if (!data || data.length === 0) return
-    const keys = Object.keys(data[0])
-    const csvContent = [
-      keys.join(','),
-      ...data.map(item => keys.map(key => {
-        let val = item[key]
-        if (val === null || val === undefined) val = ''
-        val = String(val).replace(/"/g, '""')
-        if (val.search(/("|,|\n)/g) >= 0) val = `"${val}"`
-        return val
-      }).join(','))
-    ].join('\n')
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    let headers = []
+    let rows = []
+
+    const firstItem = data[0]
+    const isOrders = 'product_title' in firstItem && 'whatsapp' in firstItem
+    const isRegistrations = 'cooperation_type' in firstItem && 'institution' in firstItem
+    const isTalent = 'answers' in firstItem && 'age' in firstItem
+
+    if (isOrders) {
+      headers = [
+        'ID', 'Tanggal', 'Nama Lengkap', 'Email', 'WhatsApp', 
+        'Segmen/Kategori', 'Peminatan (Produk/Kelas)', 'Sumber', 
+        'Lembaga/Instansi', 'Waktu Pelaksanaan', 'Catatan Kebutuhan', 'Status'
+      ]
+      rows = data.map(item => [
+        item.id,
+        formatDate(item.created_at),
+        item.name,
+        item.email || '-',
+        item.whatsapp,
+        item.segment || item.category || 'Umum',
+        item.product_title || item.interest || '-',
+        item.source || item.source_info || 'Website',
+        item.institution || '-',
+        item.execution_time || '-',
+        item.notes || '-',
+        item.status || 'Lead'
+      ])
+    } else if (isRegistrations) {
+      headers = [
+        'ID', 'Tanggal', 'Nama Lengkap', 'Email', 'WhatsApp', 
+        'Lembaga/Instansi', 'Jenis Kemitraan', 'Catatan Pesan'
+      ]
+      rows = data.map(item => [
+        item.id,
+        formatDate(item.created_at),
+        item.name,
+        item.email || '-',
+        item.whatsapp,
+        item.institution || '-',
+        item.cooperation_type || '-',
+        item.message || '-'
+      ])
+    } else if (isTalent) {
+      headers = [
+        'ID', 'Tanggal', 'Nama Lengkap', 'Usia', 'Lembaga/Instansi', 
+        'Status Asesmen', 'Jawaban Detail'
+      ]
+      rows = data.map(item => {
+        let status = 'Baru Isi Form'
+        let detail = '-'
+        if (item.answers) {
+          status = 'Asesmen Selesai'
+          detail = typeof item.answers === 'object' ? JSON.stringify(item.answers) : item.answers
+        }
+        return [
+          item.id,
+          formatDate(item.created_at),
+          item.name,
+          item.age ? `${item.age} Tahun` : '-',
+          item.institution || '-',
+          status,
+          detail
+        ]
+      })
+    } else {
+      headers = Object.keys(firstItem)
+      rows = data.map(item => headers.map(key => {
+        const val = item[key]
+        if (val === null || val === undefined) return ''
+        if (typeof val === 'object') return JSON.stringify(val)
+        return val
+      }))
+    }
+
+    const csvContent = [
+      headers.join(';'),
+      ...rows.map(row => row.map(val => {
+        let str = String(val === null || val === undefined ? '' : val)
+        str = str.replace(/"/g, '""')
+        if (str.search(/("|\;|\n|\r)/g) >= 0) {
+          str = `"${str}"`
+        }
+        return str
+      }).join(';'))
+    ].join('\r\n')
+
+    const BOM = '\uFEFF'
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.setAttribute('href', url)
