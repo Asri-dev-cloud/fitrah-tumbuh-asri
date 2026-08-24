@@ -288,7 +288,7 @@ export default function AdminDashboard({ navigate }) {
       const data = await res.json()
       setFormData(prev => ({
         ...prev,
-        download_link: `${API_BASE_URL}${data.fileUrl}`
+        download_link: data.fileUrl
       }))
       setCrudError('')
       alert('Berkas berhasil diunggah dan disimpan!')
