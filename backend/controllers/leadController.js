@@ -1,3 +1,8 @@
+/**
+ * File: controllers/leadController.js
+ * Deskripsi: Controller untuk menangani data leads, pendaftaran kemitraan, asesmen mandiri talent mapping, serta data halaman statis.
+ */
+
 import pool from '../config/database.js';
 
 // GET health check

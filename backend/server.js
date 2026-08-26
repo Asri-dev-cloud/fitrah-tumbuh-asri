@@ -1,3 +1,8 @@
+/**
+ * File: server.js
+ * Deskripsi: Entry point utama untuk server Express, mengkonfigurasi middleware global, serving static assets, dan memuat rute API utama.
+ */
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';

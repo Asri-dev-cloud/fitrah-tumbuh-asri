@@ -1,3 +1,8 @@
+/**
+ * File: middleware/auth.js
+ * Deskripsi: Middleware untuk melakukan autentikasi token admin pada request API yang dilindungi.
+ */
+
 export const ADMIN_TOKEN = 'ft-admin-super-token-2026';
 
 export const authenticateAdmin = (req, res, next) => {

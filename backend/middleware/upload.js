@@ -1,3 +1,8 @@
+/**
+ * File: middleware/upload.js
+ * Deskripsi: Middleware untuk menangani proses upload berkas/file menggunakan Multer secara dinamis.
+ */
+
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';

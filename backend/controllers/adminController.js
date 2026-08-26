@@ -1,3 +1,8 @@
+/**
+ * File: controllers/adminController.js
+ * Deskripsi: Controller untuk menangani aksi admin seperti login, upload file, dan penghapusan file.
+ */
+
 import fs from 'fs';
 import path from 'path';
 import { ADMIN_TOKEN } from '../middleware/auth.js';

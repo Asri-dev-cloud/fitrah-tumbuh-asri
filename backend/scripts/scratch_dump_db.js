@@ -1,3 +1,8 @@
+/**
+ * File: scripts/scratch_dump_db.js
+ * Deskripsi: Script penolong untuk mengekspor (dump) seluruh data tabel PostgreSQL ke file JSON lokal (db_dump.json).
+ */
+
 import pg from 'pg';
 import dotenv from 'dotenv';
 import fs from 'fs';

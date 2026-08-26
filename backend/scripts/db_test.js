@@ -1,3 +1,8 @@
+/**
+ * File: scripts/db_test.js
+ * Deskripsi: Script uji coba koneksi PostgreSQL dan pengubahan zona waktu database menjadi Asia/Jakarta (WIB).
+ */
+
 import pg from 'pg';
 import dotenv from 'dotenv';
 

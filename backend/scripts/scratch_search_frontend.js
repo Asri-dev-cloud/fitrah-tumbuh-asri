@@ -1,3 +1,8 @@
+/**
+ * File: scripts/scratch_search_frontend.js
+ * Deskripsi: Script penolong untuk mencari kata kunci (seperti video embed, youtube, dsb) di seluruh kode frontend.
+ */
+
 import fs from 'fs';
 import path from 'path';
 

@@ -1,3 +1,8 @@
+/**
+ * File: controllers/storeController.js
+ * Deskripsi: Controller untuk menangani operasional CRUD pada produk digital, kelas, dan jasa storefront.
+ */
+
 import pool from '../config/database.js';
 
 // GET all store items

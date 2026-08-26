@@ -1,3 +1,8 @@
+/**
+ * File: scripts/scratch_query_db.js
+ * Deskripsi: Script uji coba kueri SQL untuk membaca data produk digital (store_items) langsung dari PostgreSQL.
+ */
+
 import pg from 'pg';
 import dotenv from 'dotenv';
 

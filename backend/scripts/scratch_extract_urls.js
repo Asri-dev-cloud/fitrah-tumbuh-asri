@@ -1,3 +1,8 @@
+/**
+ * File: scripts/scratch_extract_urls.js
+ * Deskripsi: Script penolong untuk mengekstrak seluruh URL/link eksternal yang ada di database dump JSON.
+ */
+
 import fs from 'fs';
 
 const data = JSON.parse(fs.readFileSync('db_dump.json', 'utf8'));

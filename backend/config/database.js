@@ -1,3 +1,8 @@
+/**
+ * File: config/database.js
+ * Deskripsi: Konfigurasi koneksi database PostgreSQL (Supabase) dengan fallback otomatis ke database JSON lokal.
+ */
+
 import pg from 'pg';
 import dotenv from 'dotenv';
 import fs from 'fs';

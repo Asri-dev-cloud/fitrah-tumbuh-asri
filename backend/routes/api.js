@@ -1,3 +1,8 @@
+/**
+ * File: routes/api.js
+ * Deskripsi: Deklarasi dan mapping rute-rute API backend ke controller dan middleware yang bersangkutan.
+ */
+
 import { Router } from 'express';
 import { authenticateAdmin } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
