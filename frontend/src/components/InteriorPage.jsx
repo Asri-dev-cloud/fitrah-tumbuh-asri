@@ -107,7 +107,7 @@ export default function InteriorPage({ page, navigate }) {
     if (page === 'program') return <ProgramPage />
     if (page === 'talent-mapping') return <TalentMappingPage />
     if (page === 'portofolio') return <PortfolioPage navigate={navigate} />
-    if (page === 'kolaborasi') return <CollaborationPage />
+    if (page === 'kolaborasi') return <CollaborationPage navigate={navigate} />
     if (page === 'produk') return <ProdukPage navigate={navigate} />
     if (page === 'kelas') return <KelasPage navigate={navigate} />
     if (page === 'services') return <ServicesPage navigate={navigate} />
